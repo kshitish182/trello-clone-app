@@ -1,0 +1,32 @@
+// variables for media breakpoints
+
+$xxs: 380px; // Small mobiles
+$xs: 480px; // medium to large mobiles
+$sm: 768px; // mobile landscape and tab view
+$md: 992px; // large tab and landscape view
+$lg: 1200px; // small screen laptops
+$xl: 1280px; // large screen laptops and desktops
+
+// colors
+$primary-color: #db4c3f;
+
+//basics
+$white: #fff;
+$black: #000;
+$gray: gray;
+$electric: #7ef9ff;
+$baby-blue: #89cff0;
+$gray-light: #b3b3b3;
+$gray-lighter: #ededed;
+
+// backgrounds
+$header-bg: $white;
+$btn-primary: $gray;
+
+//states
+$link: #007db5;
+$link--hover: $baby-blue;
+$link-border--hover: $baby-blue;
+
+// box-shadows
+$shadow--light: 0px 1px 15px rgba(0, 0, 0, 0.1);
