@@ -1,0 +1,15 @@
+.card {
+  display: block;
+  background: $white;
+  border-radius: 4px;
+  padding: 20px;
+
+  @include m(thumbnail) {
+    width: 200px;
+    height: 150px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    background: $primary-color;
+    color: $white;
+    margin: 0 15px 15px 0;
+  }
+}

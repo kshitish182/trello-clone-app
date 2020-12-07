@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 
 import './assets/sass/style.scss';
+import Home from './components/Home';
 import Header from './components/Header';
 
 ReactDOM.render(
   <React.StrictMode>
     <Header />
+    <Home />
   </React.StrictMode>,
   document.getElementById('root')
 );

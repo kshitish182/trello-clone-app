@@ -1,0 +1,8 @@
+.flx {
+  display: flex;
+
+  @include m(board-container) {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
