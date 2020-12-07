@@ -1,0 +1,12 @@
+.btn {
+  @include m(primary) {
+    padding: 5px;
+    background: rgb(255, 255, 255/30%);
+
+    .icon {
+      path {
+        color: $white;
+      }
+    }
+  }
+}

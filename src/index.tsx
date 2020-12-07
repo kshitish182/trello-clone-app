@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 
-import Boards from './components/Boards';
+import './assets/sass/style.scss';
+import Header from './components/Header';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Boards />
+    <Header />
   </React.StrictMode>,
   document.getElementById('root')
 );

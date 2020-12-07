@@ -7,9 +7,7 @@ body {
   height: 100%;
   width: 100%;
   overflow: auto;
-
-  // to fix margin-collpase issue
-  padding-top: 1px;
+  background: $white;
 }
 
 .container {
@@ -23,12 +21,18 @@ body {
   }
 }
 
-.col-left {
-  width: 350px;
+.col-sides {
+  width: 20%;
+  display: none;
+
+  @include mq(sm) {
+    display: block;
+  }
 }
 
 .col-mid {
-  width: 900px;
+  width: 80%;
+  margin: 0 auto;
 
   @include m(dashboard) {
     width: 100%;
@@ -38,10 +42,6 @@ body {
       padding: 0 50px;
     }
   }
-}
-
-.col-right {
-  width: 350px;
 }
 
 .main-content {

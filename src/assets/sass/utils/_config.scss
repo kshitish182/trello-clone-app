@@ -7,9 +7,6 @@ $md: 992px; // large tab and landscape view
 $lg: 1200px; // small screen laptops
 $xl: 1280px; // large screen laptops and desktops
 
-// colors
-$primary-color: #db4c3f;
-
 //basics
 $white: #fff;
 $black: #000;
@@ -18,10 +15,8 @@ $electric: #7ef9ff;
 $baby-blue: #89cff0;
 $gray-light: #b3b3b3;
 $gray-lighter: #ededed;
-
-// backgrounds
-$header-bg: $white;
-$btn-primary: $gray;
+$lochmara: #0079bf;
+$allports: #026aa7;
 
 //states
 $link: #007db5;
@@ -30,3 +25,9 @@ $link-border--hover: $baby-blue;
 
 // box-shadows
 $shadow--light: 0px 1px 15px rgba(0, 0, 0, 0.1);
+
+// colors
+$primary-color: $lochmara;
+
+// backgrounds
+$bg--header: $allports;
