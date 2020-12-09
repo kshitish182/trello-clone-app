@@ -5,4 +5,10 @@
     flex-wrap: wrap;
     width: 100%;
   }
+
+  @include e(col) {
+    flex: 0 1 300px;
+    margin-right: 20px;
+    height: 100%;
+  }
 }

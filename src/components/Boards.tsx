@@ -1,8 +1,13 @@
-import Board from '../types/boards';
+import Board, { List } from '../types/boards';
 import { useState, useEffect } from 'react';
 import { postBoard, initialBoardData, getAllBoard } from '../services/board';
 
-const Boards = () => {
+interface BoardsProps {
+  getTaskboardData: (value: Board) => void;
+  setTaskboardStatus: (value: boolean) => void;
+}
+
+const Boards = (props: BoardsProps) => {
   const [showBoardInput, setBoardInputStatus] = useState<boolean>(false);
   const [boardList, updateBoardList] = useState<Board[]>([initialBoardData]);
 
@@ -31,9 +36,14 @@ const Boards = () => {
     fetchAllBoard();
   }, []);
 
+  const _handleBoardClick = (data: Board) => {
+    props.getTaskboardData(data);
+    props.setTaskboardStatus(true);
+  };
+
   return (
-    <div style={{ padding: 15 }}>
-      <div className="title title--xl">Your Boards</div>
+    <div className="title title--xl">
+      Your Boards
       <div className="flx flx--board-container mt--15">
         {!!boardList.length ? (
           boardList.map((value: Board, idx: number) => {
@@ -41,7 +51,7 @@ const Boards = () => {
 
             return (
               !!value.title && (
-                <div className="card card--thumbnail" key={`board-no-${idx}`}>
+                <div className="card card--thumbnail" key={`board-no-${idx}`} onClick={() => _handleBoardClick(value)}>
                   <div className="title title--lg">{value.title}</div>
                 </div>
               )
@@ -50,12 +60,12 @@ const Boards = () => {
         ) : (
           <></>
         )}
-        {showBoardInput && (
-          <div className="card card--thumbnail">
-            <input type="text" className="input input--board" autoFocus={true} onKeyDown={handleKeydown} />
-          </div>
-        )}
       </div>
+      {showBoardInput && (
+        <div className="card card--thumbnail">
+          <input type="text" className="input input--board" autoFocus={true} onKeyDown={handleKeydown} />
+        </div>
+      )}
       <button className="btn btn--icon" onClick={() => setBoardInputStatus(true)}>
         + Add board
       </button>
