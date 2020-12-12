@@ -9,3 +9,21 @@
 .mt--20 {
   margin-top: 20px;
 }
+
+.mr--20 {
+  margin-right: 20px;
+}
+
+.list-input {
+  width: 300px;
+  align-self: flex-start;
+  text-align: left;
+}
+
+.createElm__btn-wrapper {
+  margin-top: 15px;
+
+  > .btn {
+    margin-right: 15px;
+  }
+}

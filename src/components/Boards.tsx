@@ -1,4 +1,4 @@
-import Board, { List } from '../types/boards';
+import Board from '../types/boards';
 import { useState, useEffect } from 'react';
 import { postBoard, initialBoardData, getAllBoard } from '../services/board';
 
