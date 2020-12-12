@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
+import ListItem from './List';
 import CreateElement from './CreateElement';
 import Board, { List } from '../../types/boards';
 
@@ -24,17 +25,10 @@ const TaskBoard = (props: TaskBoardProps) => {
     <div className="col-mid col-mid--dashboard">
       <div className="title title--lg">{title}</div>
       <div className="flx mt--20">
-        {listData.map((value: List) => (
-          <div className="flx__col">
-            <div className="card card--list">
-              <div className="card__header">
-                <div className="title title--lg">{value.name}</div>
-              </div>
-              <div className="card__footer">
-                <button className="btn">+ Add card</button>
-              </div>
-            </div>
-          </div>
+        {listData.map((value: List, index: number) => (
+          <React.Fragment key={`list-name-${index}`}>
+            <ListItem listItem={value} />
+          </React.Fragment>
         ))}
         {isListInputCardShown && (
           <div className="card card--list mr--20" style={{ padding: 20 }}>
