@@ -1,6 +1,10 @@
-const Login = () => {
+interface LoginProps {
+  handlePageChange: () => void;
+}
+
+const Login = (props: LoginProps) => {
   return (
-    <form className="form">
+    <>
       <div className="title title--lg mb--15">Login</div>
       <div className="form__elm">
         <label className="input__label">Email</label>
@@ -11,9 +15,10 @@ const Login = () => {
         <input type="password" className="input" />
       </div>
       <div className="form__elm">
-        <button type="button">Submit</button>
+        <button>Sign in</button>
+        <button onClick={props.handlePageChange}>Register</button>
       </div>
-    </form>
+    </>
   );
 };
 
