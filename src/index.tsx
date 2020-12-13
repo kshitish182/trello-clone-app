@@ -5,11 +5,17 @@ import reportWebVitals from './reportWebVitals';
 import './assets/sass/style.scss';
 import Home from './components/Home';
 import Header from './components/Header';
+import Authorization from './components/AuthComponents';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Header />
-    <Home />
+    {false && (
+      <>
+        <Header />
+        <Home />
+      </>
+    )}
+    <Authorization />
   </React.StrictMode>,
   document.getElementById('root')
 );

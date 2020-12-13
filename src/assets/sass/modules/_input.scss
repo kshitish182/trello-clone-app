@@ -1,11 +1,17 @@
 .input {
   outline: none;
-  border: 1px solid transparent;
+  border: 1px solid $gray;
   border-radius: 4px;
+  padding: 5px 10px;
   width: 100%;
 
   @include m(board) {
     width: 150px;
     padding: 5px;
+  }
+
+  @include e(label) {
+    margin-bottom: 5px;
+    display: inline-block;
   }
 }
