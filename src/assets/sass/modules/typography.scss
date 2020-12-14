@@ -15,4 +15,10 @@
   @include m(center) {
     text-align: center;
   }
+
+  @include m(err) {
+    color: red;
+    margin-top: 5px;
+    font-size: 10px;
+  }
 }
