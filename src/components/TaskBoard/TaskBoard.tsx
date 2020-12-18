@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 import ListItem from './List';
 import CreateElement from './CreateElement';
-import Board, { List } from '../../types/boards';
-
+import Board, { List } from '../../types/board';
 interface TaskBoardProps {
   taskboardData: Board;
 }

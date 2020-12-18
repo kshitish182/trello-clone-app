@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { List } from '../../types/boards';
+import { List } from '../../types/board';
 import CreateElement from './CreateElement';
 
 interface ListProps {

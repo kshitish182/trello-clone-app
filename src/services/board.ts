@@ -1,5 +1,5 @@
 import { http } from '../utils/http';
-import Board from '../types/boards';
+import Board from '../types/board';
 
 export const initialBoardData: Board = {
   _id: '',
@@ -16,28 +16,17 @@ export const initialBoardData: Board = {
   ],
 };
 
-export const postBoard = async (endPoint: string, data: Pick<Board, 'title' | 'isArchived'>) => {
-  try {
-    const result = await http.post(endPoint, data);
+export const postBoard = async (userId: string, payload: { title: string }) => {
+  const endPoint = `/createBoard/${userId}`;
 
-    if (result.data.payload) {
+  try {
+    const { data } = await http.post(endPoint, payload);
+
+    if (data.status === 201) {
       return true;
     }
   } catch (err) {
     console.log(err);
     return false;
-  }
-};
-
-export const getAllBoard = async (endPoint: string) => {
-  try {
-    const result = await http.get(endPoint);
-    console.log(result);
-
-    return result.data;
-  } catch (err) {
-    console.log(err);
-
-    return '';
   }
 };

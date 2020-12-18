@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { loginUser } from '../../services/auth';
-
 interface LoginProps {
   handlePageChange: () => void;
+  handleUserAuth: (value: () => Promise<any>) => void;
 }
 
 const initialLoginState = {
@@ -14,8 +14,6 @@ const Login = (props: LoginProps) => {
   const [loginData, updateLoginData] = useState(initialLoginState);
 
   const handleInputChange = (event: any, key: string) => updateLoginData({ ...loginData, [key]: event.target.value });
-
-  const handleSignIn = () => loginUser(loginData);
 
   return (
     <>
@@ -34,7 +32,11 @@ const Login = (props: LoginProps) => {
         />
       </div>
       <div className="form__elm">
-        <button type="button" onClick={handleSignIn}>
+        <button
+          type="button"
+          // onClick={() => props.handleLogin(loginData)}
+          onClick={() => props.handleUserAuth(() => loginUser(loginData))}
+        >
           Sign in
         </button>
         <button type="button" onClick={props.handlePageChange}>

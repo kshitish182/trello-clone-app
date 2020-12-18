@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { registerUser } from '../../services/auth';
 interface RegisterProps {
   handlePageChange: () => void;
+  handleUserAuth: (value: () => Promise<any>) => void;
 }
 
 const initialRegistrationData = {
@@ -21,7 +22,8 @@ const Register = (props: RegisterProps) => {
       return setErrorStatus(true);
     }
 
-    registerUser(registrationData);
+    setErrorStatus(false);
+    props.handleUserAuth(() => registerUser(registrationData));
   };
 
   const handleInputChange = (event: any, key: string) => {

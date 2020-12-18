@@ -1,52 +1,60 @@
-import Board from '../types/boards';
-import { useState, useEffect } from 'react';
-import { postBoard, initialBoardData, getAllBoard } from '../services/board';
+import Board from '../types/board';
+import { useState } from 'react';
+import { postBoard, initialBoardData } from '../services/board';
 
+interface subBoardData {
+  title: string;
+  _id: string;
+}
 interface BoardsProps {
+  userId: string;
+  boardData: subBoardData[] | [];
   getTaskboardData: (value: Board) => void;
   setTaskboardStatus: (value: boolean) => void;
 }
 
 const Boards = (props: BoardsProps) => {
-  const [showBoardInput, setBoardInputStatus] = useState<boolean>(false);
-  const [boardList, updateBoardList] = useState<Board[]>([initialBoardData]);
+  const [showAddBoard, setAddBoardStatus] = useState<boolean>(false);
+  const [boardList, updateBoardList] = useState<(subBoardData | null)[]>(props.boardData);
 
-  const handleKeydown = async (e: any) => {
+  const initialBoardData = {
+    title: '',
+    _id: '',
+  };
+
+  const addBoardHandler = async (e: any) => {
     if (e.keyCode !== 13 || !e.target.value) {
       return;
     }
 
+    console.log('userId', props.userId);
+
     const boardData = { ...initialBoardData, title: e.target.value };
-    const result = await postBoard('/board', { title: boardData.title, isArchived: boardData.isArchived });
+    // post the board and update state if request is successful
+    const result = await postBoard(props.userId, boardData);
+    console.log(result);
     if (!result) {
-      setBoardInputStatus(true);
-      return updateBoardList([...boardList, initialBoardData]);
+      return;
     }
 
-    setBoardInputStatus(false);
-    return updateBoardList([...boardList, boardData]);
+    updateBoardList([...boardList, boardData]);
+    setAddBoardStatus(false);
   };
 
-  const fetchAllBoard = async () => {
-    const result = await getAllBoard('/board');
-    updateBoardList(result);
+  const _handleBoardClick = (data: {}) => {
+    // props.getTaskboardData(data);
+    // props.setTaskboardStatus(true);
+    console.log(data);
   };
 
-  useEffect(() => {
-    fetchAllBoard();
-  }, []);
-
-  const _handleBoardClick = (data: Board) => {
-    props.getTaskboardData(data);
-    props.setTaskboardStatus(true);
-  };
+  console.log(boardList);
 
   return (
     <div className="title title--xl">
       Your Boards
       <div className="flx flx--board-container mt--15">
-        {!!boardList.length ? (
-          boardList.map((value: Board, idx: number) => {
+        {boardList.length > 0 ? (
+          boardList.map((value: any, idx: any) => {
             console.log(value);
 
             return (
@@ -61,12 +69,12 @@ const Boards = (props: BoardsProps) => {
           <></>
         )}
       </div>
-      {showBoardInput && (
+      {showAddBoard && (
         <div className="card card--thumbnail">
-          <input type="text" className="input input--board" autoFocus={true} onKeyDown={handleKeydown} />
+          <input type="text" className="input input--board" autoFocus={true} onKeyDown={addBoardHandler} />
         </div>
       )}
-      <button className="btn btn--icon" onClick={() => setBoardInputStatus(true)}>
+      <button className="btn btn--icon" onClick={() => setAddBoardStatus(true)}>
         + Add board
       </button>
     </div>

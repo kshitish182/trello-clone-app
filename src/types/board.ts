@@ -2,7 +2,7 @@ export default interface Board {
   _id?: String;
   title: String;
   createdOn?: String;
-  isArchived: boolean;
+  isArchived?: boolean;
   lists: List[];
 }
 

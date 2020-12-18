@@ -3,19 +3,11 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 
 import './assets/sass/style.scss';
-import Home from './components/Home';
-import Header from './components/Header';
-import Authorization from './components/AuthComponents';
+import App from './components/App';
 
 ReactDOM.render(
   <React.StrictMode>
-    {false && (
-      <>
-        <Header />
-        <Home />
-      </>
-    )}
-    <Authorization />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
