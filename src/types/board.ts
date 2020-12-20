@@ -1,14 +1,20 @@
 export default interface Board {
-  _id?: String;
+  _id: String;
   title: String;
-  createdOn?: String;
   isArchived?: boolean;
   lists: List[];
 }
 
 export interface List {
-  _id?: String;
+  _id: String;
   name: String;
-  createdOn?: String;
   level: number;
+  cards:
+    | [
+        {
+          title: string;
+          ownedBy: string;
+        }
+      ]
+    | [];
 }

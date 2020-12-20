@@ -1,26 +1,24 @@
-import { http } from '../utils/http';
 import Board from '../types/board';
+import { http } from '../utils/http';
+import { appendToEndpoint } from '../utils/string';
 
 export const initialBoardData: Board = {
   _id: '',
   title: '',
   isArchived: false,
-  createdOn: '',
   lists: [
     {
       name: '',
       _id: '',
       level: 0,
-      createdOn: '',
+      cards: [],
     },
   ],
 };
 
 export const postBoard = async (userId: string, payload: { title: string }) => {
-  const endPoint = `/createBoard/${userId}`;
-
   try {
-    const { data } = await http.post(endPoint, payload);
+    const { data } = await http.post(appendToEndpoint('/createBoard', userId), payload);
 
     if (data.status === 201) {
       return true;
@@ -28,5 +26,14 @@ export const postBoard = async (userId: string, payload: { title: string }) => {
   } catch (err) {
     console.log(err);
     return false;
+  }
+};
+
+export const getBoard = async (boardId: string) => {
+  try {
+    const result = await http.get(appendToEndpoint('getBoard', boardId));
+    console.log(result.data);
+  } catch (err) {
+    console.log(err);
   }
 };

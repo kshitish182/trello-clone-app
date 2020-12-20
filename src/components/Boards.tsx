@@ -1,6 +1,5 @@
-import Board from '../types/board';
 import { useState } from 'react';
-import { postBoard, initialBoardData } from '../services/board';
+import { postBoard } from '../services/board';
 
 interface subBoardData {
   title: string;
@@ -9,7 +8,7 @@ interface subBoardData {
 interface BoardsProps {
   userId: string;
   boardData: subBoardData[] | [];
-  getTaskboardData: (value: Board) => void;
+  getBoardId: (value: string) => void;
   setTaskboardStatus: (value: boolean) => void;
 }
 
@@ -27,8 +26,6 @@ const Boards = (props: BoardsProps) => {
       return;
     }
 
-    console.log('userId', props.userId);
-
     const boardData = { ...initialBoardData, title: e.target.value };
     // post the board and update state if request is successful
     const result = await postBoard(props.userId, boardData);
@@ -41,13 +38,10 @@ const Boards = (props: BoardsProps) => {
     setAddBoardStatus(false);
   };
 
-  const _handleBoardClick = (data: {}) => {
-    // props.getTaskboardData(data);
-    // props.setTaskboardStatus(true);
-    console.log(data);
+  const _handleBoardClick = (boardId: string) => {
+    props.getBoardId(boardId);
+    props.setTaskboardStatus(true);
   };
-
-  console.log(boardList);
 
   return (
     <div className="title title--xl">
@@ -59,7 +53,11 @@ const Boards = (props: BoardsProps) => {
 
             return (
               !!value.title && (
-                <div className="card card--thumbnail" key={`board-no-${idx}`} onClick={() => _handleBoardClick(value)}>
+                <div
+                  className="card card--thumbnail"
+                  key={`board-no-${idx}`}
+                  onClick={() => _handleBoardClick(value._id)}
+                >
                   <div className="title title--lg">{value.title}</div>
                 </div>
               )

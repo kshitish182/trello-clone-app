@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { initialBoardData } from '../services/board';
 
 import Boards from './Boards';
 import User from '../types/user';
 import Board from '../types/board';
-import TaskBoard from './TaskBoard';
-
+import TaskBoardWrapper from '../components/TaskBoardComponents';
 interface HomeProps {
   userData: User;
 }
@@ -13,9 +11,7 @@ interface HomeProps {
 const Home = (props: HomeProps) => {
   const { userData } = props;
   const [showTaskBoard, setTaskboardStatus] = useState<boolean>(false);
-  const [taskboardData, getTaskboardData] = useState<Board>(initialBoardData);
-
-  console.log(userData._id);
+  const [boardId, getBoardId] = useState<string>('');
 
   return (
     <main className="container main-offset full-page">
@@ -26,7 +22,7 @@ const Home = (props: HomeProps) => {
             <div style={{ padding: 15 }}>
               <Boards
                 setTaskboardStatus={setTaskboardStatus}
-                getTaskboardData={getTaskboardData}
+                getBoardId={getBoardId}
                 userId={userData._id}
                 boardData={userData.boards}
               />
@@ -35,8 +31,7 @@ const Home = (props: HomeProps) => {
           <div className="col-sides" />
         </>
       ) : (
-        // <TaskBoard taskboardData={taskboardData} />
-        <></>
+        <TaskBoardWrapper boardId={boardId} />
       )}
     </main>
   );
