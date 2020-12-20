@@ -1,44 +1,57 @@
 import { useState } from 'react';
 
-import { List } from '../../types/board';
 import CreateElement from './CreateElement';
+import { createCard } from '../../services/card';
+import { List, Card } from '../../types/board';
 
 interface ListProps {
-  listItem: List;
+  listData: List;
+  boardId: string;
 }
 
-const cardInitialState = {
-  name: '',
-  createdOn: '',
-};
-
 const ListItem = (props: ListProps) => {
-  const [cardList, updateCardList] = useState<any>([cardInitialState]);
-  const [isInputBlockShown, handleInputBlockVisibility] = useState<boolean>(false);
+  const { listData, boardId } = props;
+  const [cardList, updateCardList] = useState<(Card | null)[]>(listData.cards);
+  const [showInput, setInputBlockStatus] = useState<boolean>(false);
 
-  const handleCardCreation = (cardName: string) => {
+  const handleCardCreation = async (cardName: string) => {
     if (!cardName) {
       return;
     }
 
-    updateCardList([...cardList, { ...cardInitialState, name: cardName }]);
-    handleInputBlockVisibility(false);
+    const createdCardData: Card = {
+      _id: '',
+      title: cardName,
+      ownedBy: listData._id,
+      description: '',
+    };
+
+    const result = await createCard(boardId, { title: createdCardData.title, ownedBy: createdCardData.ownedBy });
+
+    if (!result) {
+      return;
+    }
+
+    console.log(result);
+
+    updateCardList([...cardList, { ...createdCardData }]);
+    setInputBlockStatus(false);
   };
 
   return (
     <div className="flx__col">
       <div className="card card--list">
         <div className="card__header">
-          <div className="title title--lg">{props.listItem.name}</div>
+          <div className="title title--lg">{listData.name}</div>
         </div>
-        {cardList.length > 1 ? (
+        {cardList.length > 0 ? (
           <div className="card__body">
             {cardList.map(
               (value: any) =>
-                value.name && (
+                value.title && (
                   <div className="card">
                     <div className="card__header">
-                      <div className="title">{value.name}</div>
+                      <div className="title">{value.title}</div>
                     </div>
                   </div>
                 )
@@ -48,15 +61,12 @@ const ListItem = (props: ListProps) => {
           <></>
         )}
         <div className="card__footer">
-          {isInputBlockShown ? (
+          {showInput ? (
             <div>
-              <CreateElement
-                onSubmitHandler={handleCardCreation}
-                onCancelHandler={() => handleInputBlockVisibility(false)}
-              />
+              <CreateElement onSubmitHandler={handleCardCreation} onCancelHandler={() => setInputBlockStatus(false)} />
             </div>
           ) : (
-            <button className="btn" onClick={() => handleInputBlockVisibility(true)}>
+            <button className="btn" onClick={() => setInputBlockStatus(true)}>
               + Add card
             </button>
           )}

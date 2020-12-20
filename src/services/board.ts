@@ -33,7 +33,11 @@ export const getBoard = async (boardId: string) => {
   try {
     const result = await http.get(appendToEndpoint('getBoard', boardId));
     console.log(result.data);
+
+    return result.data.data;
   } catch (err) {
-    console.log(err);
+    console.log(err.response.data.message);
+
+    return null;
   }
 };

@@ -1,50 +1,64 @@
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 
-// import ListItem from './List';
-// import CreateElement from './CreateElement';
-// import Board, { List } from '../../types/board';
+import ListItem from './List';
+import CreateElement from './CreateElement';
+import { createList } from '../../services/list';
+import Board, { List } from '../../types/board';
 
-// interface TaskBoardProps {
-//   taskboardData: Board;
-// }
+interface TaskBoardProps {
+  boardData: Board;
+}
 
-const TaskBoard = () => {
-  // const { title, lists } = props.taskboardData;
+const TaskBoard = (props: TaskBoardProps) => {
+  const { boardData } = props;
+  console.log(boardData.lists);
 
-  // const [isListInputCardShown, setListInputCardStatus] = useState<boolean>(false);
+  const [showInput, setInputBlockStatus] = useState<boolean>(false);
 
-  // const [listData, updateListData] = useState<List[]>(lists);
+  const [listData, updateListData] = useState<List[]>(boardData.lists);
 
-  // const handleListCreation = (listName: string) => {
-  //   if (!listName) {
-  //     return;
-  //   }
+  const handleListCreation = async (listName: string) => {
+    if (!listName) {
+      return;
+    }
 
-  //   // updateListData([...listData, { name: listName, level: 4 }]);
-  // };
+    const createdListData: List = {
+      _id: '',
+      name: listName,
+      level: boardData.lists.length,
+      cards: [],
+    };
+
+    const result = await createList(boardData._id, { name: createdListData.name, level: createdListData.level });
+    if (!result) {
+      return;
+    }
+
+    updateListData([...listData, { ...createdListData, _id: result }]);
+    setInputBlockStatus(false);
+  };
 
   return (
-    <div>TaskBoard</div>
-    // <div className="col-mid col-mid--dashboard">
-    //   <div className="title title--lg">{title}</div>
-    //   <div className="flx mt--20">
-    //     {listData.map((value: List, index: number) => (
-    //       <React.Fragment key={`list-name-${index}`}>
-    //         <ListItem listItem={value} />
-    //       </React.Fragment>
-    //     ))}
-    //     {isListInputCardShown && (
-    //       <div className="card card--list mr--20" style={{ padding: 20 }}>
-    //         <CreateElement onSubmitHandler={handleListCreation} onCancelHandler={() => setListInputCardStatus(false)} />
-    //       </div>
-    //     )}
-    //     <div className="flx__col">
-    //       <button className="btn btn--primary" onClick={() => setListInputCardStatus(true)}>
-    //         + Add more list
-    //       </button>
-    //     </div>
-    //   </div>
-    // </div>
+    <div className="col-mid col-mid--dashboard">
+      <div className="title title--lg">{boardData.title}</div>
+      <div className="flx mt--20">
+        {listData.map((value: List, index: number) => (
+          <React.Fragment key={`list-name-${index}`}>
+            <ListItem listData={value} boardId={boardData._id} />
+          </React.Fragment>
+        ))}
+        {showInput && (
+          <div className="card card--list mr--20" style={{ padding: 20 }}>
+            <CreateElement onSubmitHandler={handleListCreation} onCancelHandler={() => setInputBlockStatus(false)} />
+          </div>
+        )}
+        <div className="flx__col">
+          <button className="btn btn--primary" onClick={() => setInputBlockStatus(true)}>
+            + Add more list
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
