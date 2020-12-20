@@ -1,9 +1,19 @@
 .input {
   outline: none;
-  border: 1px solid $gray;
+  border: 1px solid $input-border;
   border-radius: 4px;
   padding: 5px 10px;
   width: 100%;
+  background: $bg--input;
+
+  ::placeholder {
+    color: $gray-1;
+    font-size: 12px;
+  }
+
+  &:focus {
+    border-color: $input-border--color;
+  }
 
   @include m(board) {
     width: 150px;
@@ -13,5 +23,10 @@
   @include e(label) {
     margin-bottom: 5px;
     display: inline-block;
+  }
+
+  @include m(thick) {
+    padding: 10px;
+    border-width: 2px;
   }
 }

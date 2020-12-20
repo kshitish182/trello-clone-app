@@ -32,63 +32,65 @@ const Register = (props: RegisterProps) => {
 
   return (
     <>
-      <div className="title title--lg mb--15">Register</div>
+      <div className="title title--lg text--center text--gray-1 mb--25">Register</div>
       <div className="form__elm">
-        <label className="input__label">First Name</label>
         <input
           type="text"
-          className="input"
+          className="input input--thick"
           value={registrationData.firstName}
           required
+          placeholder="First Name"
           onChange={(e: any) => handleInputChange(e, 'firstName')}
         />
       </div>
       <div className="form__elm">
-        <label className="input__label">Last Name</label>
         <input
           type="text"
-          className="input"
+          className="input input--thick"
           value={registrationData.lastName}
           required
+          placeholder="Last Name"
           onChange={(e: any) => handleInputChange(e, 'lastName')}
         />
       </div>
       <div className="form__elm">
-        <label className="input__label">Email</label>
         <input
           type="email"
-          className="input"
+          className="input input--thick"
           value={registrationData.email}
           required
+          placeholder="Email"
           onChange={(e: any) => handleInputChange(e, 'email')}
         />
       </div>
       <div className="form__elm">
-        <label className="input__label">Password</label>
         <input
           type="password"
-          className="input"
+          className="input input--thick"
           value={registrationData.password}
           required
+          placeholder="Password"
           onChange={(e: any) => handleInputChange(e, 'password')}
         />
       </div>
       <div className="form__elm">
-        <label className="input__label">Re-enter the password</label>
         <input
           type="password"
-          className="input"
+          className="input input--thick"
           value={registrationData.rePassword}
           required
+          placeholder="Re-Enter Password"
           onChange={(e: any) => handleInputChange(e, 'rePassword')}
         />
         {showError && <div className="text--err">Password did not match</div>}
       </div>
-      <div className="form__elm">
-        <button type="button" onClick={handleRegistration}>
+      <div className="form__elm mt--25">
+        <button type="button" className="btn btn--action btn--success btn--full" onClick={handleRegistration}>
           Regsister
         </button>
-        <button type="button" onClick={props.handlePageChange}>
+      </div>
+      <div className="flex__elm flx--ctr">
+        <button type="button" className="btn btn--link" onClick={props.handlePageChange}>
           Sign in
         </button>
       </div>

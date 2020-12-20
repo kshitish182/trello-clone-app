@@ -6,8 +6,32 @@
   border: none;
   cursor: pointer;
   font-size: 14px;
+  display: inline-block;
 
-  &:hover {
+  @include m(full) {
+    width: 100%;
+    text-align: center;
+  }
+
+  @include m(action) {
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+
+  @include m(success) {
+    background: $color--success;
+    color: $white;
+  }
+
+  @include m(link) {
+    color: $link;
+    font-size: 14px;
+    padding: 0;
     background: none;
+
+    &:hover {
+      color: $link--hover;
+    }
   }
 }

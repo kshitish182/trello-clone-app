@@ -8,3 +8,11 @@ header {
   right: 0;
   z-index: 10;
 }
+
+.header {
+  @include m(login) {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+  }
+}

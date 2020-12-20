@@ -12,6 +12,10 @@
     height: 100%;
   }
 
+  @include m(algn-ctr) {
+    align-items: center;
+  }
+
   @include m(ctr) {
     display: flex;
     justify-content: center;

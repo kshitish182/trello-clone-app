@@ -6,6 +6,10 @@
   margin-top: 15px;
 }
 
+.mt--25 {
+  margin-top: 25px;
+}
+
 .mt--20 {
   margin-top: 20px;
 }
@@ -16,6 +20,10 @@
 
 .mb--15 {
   margin-bottom: 15px;
+}
+
+.mb--25 {
+  margin-bottom: 25px;
 }
 
 .list-input {
@@ -30,4 +38,9 @@
   > .btn {
     margin-right: 15px;
   }
+}
+
+.main-logo {
+  width: 200px;
+  display: inline-block;
 }

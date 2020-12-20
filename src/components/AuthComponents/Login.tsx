@@ -17,29 +17,36 @@ const Login = (props: LoginProps) => {
 
   return (
     <>
-      <div className="title title--lg mb--15">Login</div>
+      <div className="title title--lg text--gray-1 text--center mb--25">Login</div>
       <div className="form__elm">
-        <label className="input__label">Email</label>
-        <input type="email" className="input" value={loginData.email} onChange={(e) => handleInputChange(e, 'email')} />
-      </div>
-      <div className="form__elm">
-        <label className="input__label">Password</label>
         <input
-          type="password"
-          className="input"
-          value={loginData.password}
-          onChange={(e) => handleInputChange(e, 'password')}
+          type="email"
+          className="input input--thick"
+          value={loginData.email}
+          placeholder="Enter your email"
+          onChange={(e) => handleInputChange(e, 'email')}
         />
       </div>
       <div className="form__elm">
+        <input
+          type="password"
+          className="input input--thick"
+          value={loginData.password}
+          onChange={(e) => handleInputChange(e, 'password')}
+          placeholder="Enter your password"
+        />
+      </div>
+      <div className="form__elm mt--25">
         <button
           type="button"
-          // onClick={() => props.handleLogin(loginData)}
           onClick={() => props.handleUserAuth(() => loginUser(loginData))}
+          className="btn btn--full btn--success btn--action"
         >
           Sign in
         </button>
-        <button type="button" onClick={props.handlePageChange}>
+      </div>
+      <div className="form__elm flx--ctr">
+        <button type="button" className="btn btn--link" onClick={props.handlePageChange}>
           Register
         </button>
       </div>

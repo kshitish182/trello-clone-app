@@ -21,4 +21,8 @@
     margin-top: 5px;
     font-size: 10px;
   }
+
+  @include m(gray-1) {
+    color: $gray-1;
+  }
 }
