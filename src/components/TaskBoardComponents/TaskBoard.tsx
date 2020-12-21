@@ -39,9 +39,8 @@ const TaskBoard = (props: TaskBoardProps) => {
   };
 
   return (
-    <div className="col-mid col-mid--dashboard">
-      <div className="title title--lg">{boardData.title}</div>
-      <div className="flx mt--20">
+    <div>
+      <div className="flx board__content">
         {listData.map((value: List, index: number) => (
           <React.Fragment key={`list-name-${index}`}>
             <ListItem listData={value} boardId={boardData._id} />

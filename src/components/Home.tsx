@@ -14,9 +14,9 @@ const Home = (props: HomeProps) => {
   const [boardId, getBoardId] = useState<string>('');
 
   return (
-    <main className="container main-offset full-page">
+    <>
       {!showTaskBoard ? (
-        <>
+        <main className="container main-offset full-page">
           <div className="col-sides" />
           <div className="col-mid">
             <div style={{ padding: 15 }}>
@@ -29,11 +29,11 @@ const Home = (props: HomeProps) => {
             </div>
           </div>
           <div className="col-sides" />
-        </>
+        </main>
       ) : (
         <TaskBoardWrapper boardId={boardId} />
       )}
-    </main>
+    </>
   );
 };
 

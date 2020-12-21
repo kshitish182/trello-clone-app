@@ -33,7 +33,18 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
     return <div>Something went wrong</div>;
   }
 
-  return <TaskBoard boardData={boardData} />;
+  return (
+    <div className="container full-page">
+      <div className="board page-offset">
+        <div className="col-mid col-mid--dashboard">
+          <div className="action-bar">
+            <div className="title title--lg">{boardData.title}</div>
+          </div>
+          <TaskBoard boardData={boardData} />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default TaskBoardWrapper;

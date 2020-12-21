@@ -7,7 +7,8 @@
   }
 
   @include e(col) {
-    flex: 0 1 300px;
+    width: 300px;
+    flex-shrink: 0;
     margin-right: 20px;
     height: 100%;
   }
