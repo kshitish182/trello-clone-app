@@ -46,15 +46,16 @@ const TaskBoard = (props: TaskBoardProps) => {
             <ListItem listData={value} boardId={boardData._id} />
           </React.Fragment>
         ))}
-        {showInput && (
-          <div className="card card--list mr--20" style={{ padding: 20 }}>
-            <CreateElement onSubmitHandler={handleListCreation} onCancelHandler={() => setInputBlockStatus(false)} />
-          </div>
-        )}
         <div className="flx__col">
-          <button className="btn btn--primary" onClick={() => setInputBlockStatus(true)}>
-            + Add more list
-          </button>
+          {showInput ? (
+            <div className="card card--list mr--20" style={{ padding: 20 }}>
+              <CreateElement onSubmitHandler={handleListCreation} onCancelHandler={() => setInputBlockStatus(false)} />
+            </div>
+          ) : (
+            <button className="btn btn--primary" onClick={() => setInputBlockStatus(true)}>
+              + Add more list
+            </button>
+          )}
         </div>
       </div>
     </div>

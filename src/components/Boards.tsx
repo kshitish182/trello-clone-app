@@ -16,19 +16,14 @@ const Boards = (props: BoardsProps) => {
   const [showAddBoard, setAddBoardStatus] = useState<boolean>(false);
   const [boardList, updateBoardList] = useState<(subBoardData | null)[]>(props.boardData);
 
-  const initialBoardData = {
-    title: '',
-    _id: '',
-  };
-
   const addBoardHandler = async (e: any) => {
     if (e.keyCode !== 13 || !e.target.value) {
       return;
     }
 
-    const boardData = { ...initialBoardData, title: e.target.value };
     // post the board and update state if request is successful
-    const result = await postBoard(props.userId, boardData);
+    const result = await postBoard(props.userId, e.target.value);
+    const boardData = { _id: result, title: e.target.value };
     console.log(result);
     if (!result) {
       return;

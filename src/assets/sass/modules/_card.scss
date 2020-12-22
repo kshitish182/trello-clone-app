@@ -21,6 +21,7 @@
 
   @include m(list) {
     background: $bg--lists;
+    width: 400px;
   }
 
   @include e(header) {

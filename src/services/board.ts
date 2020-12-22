@@ -16,13 +16,11 @@ export const initialBoardData: Board = {
   ],
 };
 
-export const postBoard = async (userId: string, payload: { title: string }) => {
+export const postBoard = async (userId: string, boardTitle: string) => {
   try {
-    const { data } = await http.post(appendToEndpoint('/createBoard', userId), payload);
+    const { data } = await http.post(appendToEndpoint('/createBoard', userId), { title: boardTitle });
 
-    if (data.status === 201) {
-      return true;
-    }
+    return data.data.boardId;
   } catch (err) {
     console.log(err);
     return false;
