@@ -14,6 +14,7 @@ export const initialBoardData: Board = {
       cards: [],
     },
   ],
+  members: [],
 };
 
 export const postBoard = async (userId: string, boardTitle: string) => {

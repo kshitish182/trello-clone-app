@@ -17,11 +17,19 @@
     padding: 10px;
     border-radius: 4px;
     font-weight: bold;
+
+    &.disabled {
+      background: $gray;
+    }
   }
 
   @include m(success) {
     background: $color--success;
     color: $white;
+  }
+
+  @include m(thin) {
+    padding: 5px 10px;
   }
 
   @include m(link) {

@@ -3,8 +3,13 @@ export default interface Board {
   title: string;
   isArchived?: boolean;
   lists: List[];
+  members: TeamMembers[] | [];
 }
-
+export interface TeamMembers {
+  firstName: string;
+  lastName: string;
+  // initial: string;
+}
 export interface Card {
   _id: string;
   title: string;

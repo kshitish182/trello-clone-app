@@ -32,8 +32,6 @@ const ListItem = (props: ListProps) => {
       return;
     }
 
-    console.log(result);
-
     updateCardList([...cardList, { ...createdCardData }]);
     setInputBlockStatus(false);
   };
@@ -49,7 +47,7 @@ const ListItem = (props: ListProps) => {
             {cardList.map(
               (value: any) =>
                 value.title && (
-                  <div className="card">
+                  <div className="card" draggable>
                     <div className="card__header">
                       <div className="title">{value.title}</div>
                     </div>

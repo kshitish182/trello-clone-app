@@ -26,6 +26,10 @@
   margin-bottom: 25px;
 }
 
+.ml--15 {
+  margin-left: 15px;
+}
+
 .list-input {
   width: 300px;
   align-self: flex-start;
@@ -60,5 +64,6 @@
 
   @include e(content) {
     padding: 5px 15px;
+    overflow-x: auto;
   }
 }

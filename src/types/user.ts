@@ -12,3 +12,5 @@ export default interface User {
       ]
     | [];
 }
+
+export type UserCoreType = Pick<User, 'firstName' | 'lastName' | '_id'>;
