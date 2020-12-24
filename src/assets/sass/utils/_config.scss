@@ -1,0 +1,47 @@
+// variables for media breakpoints
+
+$xxs: 380px; // Small mobiles
+$xs: 480px; // medium to large mobiles
+$sm: 768px; // mobile landscape and tab view
+$md: 992px; // large tab and landscape view
+$lg: 1200px; // small screen laptops
+$xl: 1280px; // large screen laptops and desktops
+
+//basics
+$white: #fff;
+$black: #000;
+$blue: #0052cc;
+$gray: gray;
+$apple: #5aac44;
+$electric: #7ef9ff;
+$baby-blue: #89cff0;
+$gray-light: #b3b3b3;
+$gray-lighter: #ededed;
+$lochmara: #0079bf;
+$allports: #026aa7;
+$shuttle-gray: #5e6c84;
+
+//states
+$link: $blue;
+$link--hover: $baby-blue;
+$link-border--hover: $baby-blue;
+
+//theme
+$color--success: $apple;
+
+// box-shadows
+$shadow--light: 0px 1px 15px rgba(0, 0, 0, 0.1);
+
+// colors
+$primary-color: $lochmara;
+$gray-1: $shuttle-gray;
+
+// input elements
+$input-border: #dfe1e6;
+$input-border--color: $lochmara;
+
+// backgrounds
+$bg--header: $allports;
+$bg--lists: #ebecf0;
+$bg--main: #f9fafc;
+$bg--input: #fafbfc;

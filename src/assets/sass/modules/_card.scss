@@ -1,0 +1,38 @@
+.card {
+  display: block;
+  background: $white;
+  border-radius: 4px;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @include m(thumbnail) {
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+    background: $primary-color;
+    color: $white;
+    margin: 0 15px 15px 0;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+
+  @include m(list) {
+    background: $bg--lists;
+    width: 400px;
+  }
+
+  @include e(header) {
+    padding: 15px;
+  }
+
+  @include e(footer) {
+    padding: 15px;
+  }
+
+  @include e(body) {
+    padding: 0 15px;
+  }
+}
