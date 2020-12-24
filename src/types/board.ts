@@ -1,9 +1,10 @@
+import { UserCoreType } from './user';
 export default interface Board {
   _id: string;
   title: string;
   isArchived?: boolean;
   lists: List[];
-  members: TeamMembers[] | [];
+  members: UserCoreType[] | [];
 }
 export interface TeamMembers {
   firstName: string;

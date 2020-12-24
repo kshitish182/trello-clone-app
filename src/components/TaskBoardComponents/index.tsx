@@ -5,30 +5,32 @@ import Board from '../../types/board';
 import Dropdown from '../common/Dropdown';
 import AddMemberPopup from './AddMemberPopUp';
 import { getBoard } from '../../services/board';
+import { UserCoreType } from '../../types/user';
 
 interface TaskBoardWrapperProps {
   boardId: string;
 }
 
 const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
-  const [isLoading, setLoadingStatus] = useState<boolean>(false);
   const [boardData, setBoardData] = useState<Board | null>();
+  const [isLoading, setLoadingStatus] = useState<boolean>(false);
+  const [memberData, setMemberData] = useState<UserCoreType[]>([]);
   const [showAddTeamMemberDropdown, setAddTeamMemberDropdownStatus] = useState<boolean>(false);
-
-  console.log(boardData);
+  const [showViewTeamMemberDropdown, setViewTeamMemberDropdownStatus] = useState<boolean>(false);
 
   useEffect(() => {
     setLoadingStatus(true);
     getBoard(props.boardId)
       .then((data: Board) => {
         setBoardData(data);
+        setMemberData(data.members);
         setLoadingStatus(false);
       })
       .catch((err) => {
         setLoadingStatus(false);
         setBoardData(null);
       });
-  }, []);
+  }, [props.boardId]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -51,7 +53,29 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
               >
                 + Add Team Members
               </button>
-              {showAddTeamMemberDropdown && <AddMemberPopup boardId={props.boardId} />}
+              {showAddTeamMemberDropdown && (
+                <AddMemberPopup
+                  boardId={props.boardId}
+                  handleMemberAddition={(value: UserCoreType) => setMemberData([...memberData, value])}
+                />
+              )}
+            </Dropdown>
+            <Dropdown className="ml--15" setDropdownStatus={setViewTeamMemberDropdownStatus}>
+              <button
+                className="btn btn--primary"
+                onClick={() => setViewTeamMemberDropdownStatus(!showViewTeamMemberDropdown)}
+              >
+                View Members
+              </button>
+              {showViewTeamMemberDropdown && (
+                <ul className="dropdown__menu">
+                  {!memberData.length ? (
+                    <div>No members added</div>
+                  ) : (
+                    memberData.map((value: UserCoreType) => <li className="dropdown__item">{value.firstName}</li>)
+                  )}
+                </ul>
+              )}
             </Dropdown>
           </div>
           <TaskBoard boardData={boardData} />

@@ -1,14 +1,33 @@
+import classnames from 'classnames';
 import { useEffect, useState } from 'react';
+
 import { UserCoreType } from '../../types/user';
+import { addUserInBoard } from '../../services/board';
 import { getAllNonMemberUsers } from '../../services/users';
 
 interface AddMemberPopUp {
   boardId: string;
+  handleMemberAddition: (value: UserCoreType) => void;
 }
 
 const AddMemberPopup = (props: AddMemberPopUp) => {
   const [isLoading, setLoadingStatus] = useState<boolean>(false);
+  const [isAdding, setAddMemberStatus] = useState<boolean>(false);
   const [nonMemberUserData, setUserData] = useState<(UserCoreType | null)[]>();
+
+  const addButtonClass = classnames('btn btn--action btn--success btn--thin', { disabled: isAdding });
+
+  // TODO: Provide info in UI if action was successful or failed
+
+  const handleAddBtnAction = async (value: UserCoreType) => {
+    setAddMemberStatus(true);
+    const result = await addUserInBoard(props.boardId, { _id: value._id });
+    setAddMemberStatus(false);
+    if (!result) {
+      return;
+    }
+    props.handleMemberAddition(value);
+  };
 
   useEffect(() => {
     setLoadingStatus(true);
@@ -40,7 +59,9 @@ const AddMemberPopup = (props: AddMemberPopUp) => {
               value && (
                 <li className="dropdown__item dropdown__item--w-actions">
                   <span>{value.firstName}</span>
-                  <button className="btn btn--action btn--success btn--thin">Add</button>
+                  <button className={addButtonClass} onClick={() => handleAddBtnAction(value)}>
+                    Add
+                  </button>
                 </li>
               )
           )

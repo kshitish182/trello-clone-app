@@ -40,3 +40,15 @@ export const getBoard = async (boardId: string) => {
     return null;
   }
 };
+
+export const addUserInBoard = async (boardId: string, data: { _id: string }) => {
+  const endpoint = appendToEndpoint('/addMembersInBoard', boardId);
+  try {
+    await http.post(endpoint, data);
+    return true;
+  } catch (err) {
+    console.log(err.response.data);
+
+    return false;
+  }
+};
