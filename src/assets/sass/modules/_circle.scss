@@ -1,0 +1,29 @@
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid $gray-1;
+  position: relative;
+  font-size: 12px;
+
+  @include m(sm) {
+    width: 25px;
+    height: 25px;
+  }
+
+  @include m(lg) {
+    width: 40px;
+    height: 40px;
+  }
+
+  @include e(content) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @include m(primary) {
+    border-color: $primary-color;
+  }
+}

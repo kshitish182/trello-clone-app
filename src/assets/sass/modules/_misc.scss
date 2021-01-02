@@ -30,10 +30,30 @@
   margin-left: 15px;
 }
 
+.ml--auto {
+  margin-left: auto;
+}
+
+.mr--auto {
+  margin-right: auto;
+}
+
 .list-input {
   width: 300px;
   align-self: flex-start;
   text-align: left;
+}
+
+.createElm {
+  @include m(inline) {
+    display: flex;
+    align-items: center;
+    background: $blue-tint;
+
+    .createElm__btn-wrapper {
+      margin: 0 0 0 15px;
+    }
+  }
 }
 
 .createElm__btn-wrapper {
@@ -66,4 +86,8 @@
     padding: 5px 15px;
     overflow-x: auto;
   }
+}
+
+.clickable {
+  cursor: pointer;
 }

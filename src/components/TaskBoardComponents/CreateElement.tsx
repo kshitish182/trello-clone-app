@@ -1,21 +1,32 @@
 import { useState } from 'react';
+import classnames from 'classnames';
 
 interface CreateElmProps {
-  onSubmitHandler: (value: string) => void;
+  className?: string;
+  isLoading?: boolean;
+  defaultValue?: string;
+  setInputValue?: () => void;
   onCancelHandler: () => void;
+  onSubmitHandler: (value: string) => void;
 }
 
-// Input compoenent for creating Lists and cards for the TaskBoard
+// Input compoenent for handling create and edit actions
+// TODO: Change component name
+
 const CreateElement = (props: CreateElmProps) => {
-  const [inputChange, setInputChange] = useState<string>('');
+  const { defaultValue = '', isLoading } = props;
+  const [inputChange, setInputChange] = useState<string>(defaultValue);
 
   const handleElmCreation = () => {
     props.onSubmitHandler(inputChange);
     setInputChange('');
   };
 
+  const createElmWrapperClass = classnames('createElm', props.className);
+  const btnClassName = classnames('btn btn--action btn--success btn--thin', { disabled: isLoading });
+
   return (
-    <>
+    <div className={createElmWrapperClass}>
       <div className="createElm__input">
         <input
           className="input"
@@ -25,14 +36,14 @@ const CreateElement = (props: CreateElmProps) => {
         />
       </div>
       <div className="createElm__btn-wrapper">
-        <button className="btn" onClick={handleElmCreation}>
+        <button className={btnClassName} disabled={isLoading} onClick={handleElmCreation}>
           Add
         </button>
-        <button className="btn" onClick={() => props.onCancelHandler()}>
+        <button className="btn" onClick={() => props.onCancelHandler()} disabled={isLoading}>
           Cancel
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

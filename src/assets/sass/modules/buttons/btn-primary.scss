@@ -1,7 +1,7 @@
 .btn {
   @include m(primary) {
     padding: 5px;
-    background-color: hsla(0, 0%, 100%, 0.24);
+    background-color: $blue-tint;
     color: $white;
 
     .icon {

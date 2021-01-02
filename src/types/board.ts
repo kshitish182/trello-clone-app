@@ -16,6 +16,7 @@ export interface Card {
   title: string;
   ownedBy: string;
   description: string;
+  assignee: string;
 }
 export interface List {
   _id: string;

@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 
 import ListItem from './List';
 import CreateElement from './CreateElement';
-import { createList } from '../../services/list';
 import Board, { List } from '../../types/board';
+import { UserCoreType } from '../../types/user';
+import { createList } from '../../services/list';
 
 interface TaskBoardProps {
   boardData: Board;
+  memberData: UserCoreType[];
 }
 
 const TaskBoard = (props: TaskBoardProps) => {
   const { boardData } = props;
-  console.log(boardData.lists);
 
   const [showInput, setInputBlockStatus] = useState<boolean>(false);
 
@@ -43,7 +44,7 @@ const TaskBoard = (props: TaskBoardProps) => {
       <div className="flx board__content">
         {listData.map((value: List, index: number) => (
           <React.Fragment key={`list-name-${index}`}>
-            <ListItem listData={value} boardId={boardData._id} />
+            <ListItem listData={value} boardId={boardData._id} memberData={props.memberData} />
           </React.Fragment>
         ))}
         <div className="flx__col">

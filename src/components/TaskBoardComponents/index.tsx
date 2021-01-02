@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { updateBoardTitle } from '../../services/board';
 
 import TaskBoard from './TaskBoard';
 import Board from '../../types/board';
 import Dropdown from '../common/Dropdown';
+import CreateElement from './CreateElement';
 import AddMemberPopup from './AddMemberPopUp';
 import { getBoard } from '../../services/board';
 import { UserCoreType } from '../../types/user';
@@ -10,6 +12,37 @@ import { UserCoreType } from '../../types/user';
 interface TaskBoardWrapperProps {
   boardId: string;
 }
+
+const BoardTitleComponent = (props: { title: string; boardId: string }) => {
+  const [isEditing, setEditStatus] = useState<boolean>(false);
+  const [boardTitle, setBoardTitle] = useState<string>(props.title);
+  const [showTitleEditView, setTitleEditViewStatus] = useState<boolean>(false);
+
+  const handleTitleUpdate = async (updatedTitle: string) => {
+    setEditStatus(true);
+    const result = await updateBoardTitle(props.boardId, { title: updatedTitle });
+    if (!result) {
+      return setEditStatus(false);
+    }
+    setBoardTitle(updatedTitle);
+    setEditStatus(false);
+    setTitleEditViewStatus(false);
+  };
+
+  return !showTitleEditView ? (
+    <div className="title title--lg clickable" onClick={() => setTitleEditViewStatus(true)}>
+      {boardTitle}
+    </div>
+  ) : (
+    <CreateElement
+      isLoading={isEditing}
+      onSubmitHandler={handleTitleUpdate}
+      onCancelHandler={() => setTitleEditViewStatus(false)}
+      className="createElm--inline"
+      defaultValue={boardTitle}
+    />
+  );
+};
 
 const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
   const [boardData, setBoardData] = useState<Board | null>();
@@ -45,7 +78,7 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
       <div className="board page-offset">
         <div className="col-mid col-mid--dashboard">
           <div className="action-bar flx flx--algn-ctr">
-            <div className="title title--lg">{boardData.title}</div>
+            <BoardTitleComponent title={boardData.title} boardId={props.boardId} />
             <Dropdown className="ml--15" setDropdownStatus={setAddTeamMemberDropdownStatus}>
               <button
                 className="btn btn--primary"
@@ -78,7 +111,7 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
               )}
             </Dropdown>
           </div>
-          <TaskBoard boardData={boardData} />
+          <TaskBoard boardData={boardData} memberData={memberData} />
         </div>
       </div>
     </div>

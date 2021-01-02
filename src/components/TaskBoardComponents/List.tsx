@@ -1,12 +1,15 @@
 import { useState } from 'react';
 
 import CreateElement from './CreateElement';
-import { createCard } from '../../services/card';
 import { List, Card } from '../../types/board';
+import { UserCoreType } from '../../types/user';
+import { createCard } from '../../services/card';
+import UserThumbnail from '../common/UserThumbnail';
 
 interface ListProps {
   listData: List;
   boardId: string;
+  memberData: UserCoreType[];
 }
 
 const ListItem = (props: ListProps) => {
@@ -23,6 +26,7 @@ const ListItem = (props: ListProps) => {
       _id: '',
       title: cardName,
       ownedBy: listData._id,
+      assignee: '',
       description: '',
     };
 
@@ -45,11 +49,12 @@ const ListItem = (props: ListProps) => {
         {cardList.length > 0 ? (
           <div className="card__body">
             {cardList.map(
-              (value: any) =>
+              (value: any, idx: number) =>
                 value.title && (
-                  <div className="card" draggable>
-                    <div className="card__header">
-                      <div className="title">{value.title}</div>
+                  <div id={`cardNode-${idx}`} className="card">
+                    <div className="card__header flx">
+                      <div className="title flx--algn-start">{value.title}</div>
+                      <UserThumbnail className="ml--auto" />
                     </div>
                   </div>
                 )

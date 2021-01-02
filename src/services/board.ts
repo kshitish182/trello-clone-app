@@ -52,3 +52,15 @@ export const addUserInBoard = async (boardId: string, data: { _id: string }) => 
     return false;
   }
 };
+
+export const updateBoardTitle = async (boardId: string, payload: { title: string }) => {
+  const endPoint = `board/${boardId}/update`;
+  try {
+    await http.put(endPoint, payload);
+    return true;
+  } catch (err) {
+    console.log(err.response.data);
+
+    return false;
+  }
+};
