@@ -14,8 +14,8 @@ interface ListProps {
 
 const ListItem = (props: ListProps) => {
   const { listData, boardId } = props;
-  const [cardList, updateCardList] = useState<(Card | null)[]>(listData.cards);
   const [showInput, setInputBlockStatus] = useState<boolean>(false);
+  const [cardList, updateCardList] = useState<(Card | null)[]>(listData.cards);
 
   const handleCardCreation = async (cardName: string) => {
     if (!cardName) {
@@ -36,7 +36,7 @@ const ListItem = (props: ListProps) => {
       return;
     }
 
-    updateCardList([...cardList, { ...createdCardData }]);
+    updateCardList([...cardList, { ...createdCardData, _id: result._id, assignee: result.assignee }]);
     setInputBlockStatus(false);
   };
 
@@ -48,17 +48,22 @@ const ListItem = (props: ListProps) => {
         </div>
         {cardList.length > 0 ? (
           <div className="card__body">
-            {cardList.map(
-              (value: any, idx: number) =>
-                value.title && (
+            {cardList.map((cardData: any, idx: number) => {
+              const [assigneeData] = props.memberData.filter(
+                (userData: UserCoreType) => userData._id === cardData.assignee
+              );
+
+              return (
+                cardData.title && (
                   <div id={`cardNode-${idx}`} className="card">
                     <div className="card__header flx">
-                      <div className="title flx--algn-start">{value.title}</div>
-                      <UserThumbnail className="ml--auto" />
+                      <div className="title flx--algn-start">{cardData.title}</div>
+                      <UserThumbnail className="ml--auto" userData={assigneeData} />
                     </div>
                   </div>
                 )
-            )}
+              );
+            })}
           </div>
         ) : (
           <></>

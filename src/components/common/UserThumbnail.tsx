@@ -5,11 +5,11 @@ import { UserCoreType } from '../../types/user';
 interface UserThumbnailProps {
   size?: 'sm' | 'md' | 'lg';
   className?: string;
-  // userData: UserCoreType[];
+  userData: UserCoreType;
 }
 
 const UserThumbnail = (props: UserThumbnailProps) => {
-  const { size = 'md' } = props;
+  const { size = 'md', userData } = props;
 
   const thumbnailWrapperClass = classnames(
     'circle circle--primary',
@@ -20,9 +20,12 @@ const UserThumbnail = (props: UserThumbnailProps) => {
     props.className
   );
 
+  const userFullName = `${userData.firstName} ${userData.lastName}`;
+  const userInitials = `${userData.firstName[0].toUpperCase()}${userData.lastName[0].toUpperCase()}`;
+
   return (
-    <div className={thumbnailWrapperClass}>
-      <div className="circle__content">DU</div>
+    <div className={thumbnailWrapperClass} title={userFullName}>
+      <div className="circle__content">{userInitials}</div>
     </div>
   );
 };
