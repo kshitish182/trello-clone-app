@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 
 import Login from './Login';
@@ -11,7 +10,6 @@ interface AuthorizationProps {
 }
 
 const Authorization = (props: AuthorizationProps) => {
-  const [isLoginPage, setPageStatus] = useState<boolean>(true);
   const history = useHistory();
 
   const handleUserAuth = async (authHandler: () => Promise<any>) => {
@@ -37,9 +35,6 @@ const Authorization = (props: AuthorizationProps) => {
       </div>
 
       <form className="form form--auth">
-        {false &&
-          (isLoginPage ? <Login handleUserAuth={handleUserAuth} /> : <Register handleUserAuth={handleUserAuth} />)}
-
         {/* Auth Routes */}
         <Switch>
           <Route exact path="/login" render={() => <Login handleUserAuth={handleUserAuth} />} />

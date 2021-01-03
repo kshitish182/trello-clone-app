@@ -10,10 +10,6 @@ import AddMemberPopup from './AddMemberPopUp';
 import { getBoard } from '../../services/board';
 import { UserCoreType } from '../../types/user';
 
-interface TaskBoardWrapperProps {
-  boardId: string;
-}
-
 const BoardTitleComponent = (props: { title: string; boardId: string }) => {
   const [isEditing, setEditStatus] = useState<boolean>(false);
   const [boardTitle, setBoardTitle] = useState<string>(props.title);
@@ -45,7 +41,7 @@ const BoardTitleComponent = (props: { title: string; boardId: string }) => {
   );
 };
 
-const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
+const TaskBoardWrapper = () => {
   const param: { id: string } = useParams();
   const [boardData, setBoardData] = useState<Board | null>();
   const [isLoading, setLoadingStatus] = useState<boolean>(false);
@@ -84,7 +80,7 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
       <div className="board page-offset">
         <div className="col-mid col-mid--dashboard">
           <div className="action-bar flx flx--algn-ctr">
-            <BoardTitleComponent title={boardData.title} boardId={props.boardId} />
+            <BoardTitleComponent title={boardData.title} boardId={param.id} />
             <Dropdown className="ml--15" setDropdownStatus={setAddTeamMemberDropdownStatus}>
               <button
                 className="btn btn--primary"
@@ -94,7 +90,7 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
               </button>
               {showAddTeamMemberDropdown && (
                 <AddMemberPopup
-                  boardId={props.boardId}
+                  boardId={param.id}
                   handleMemberAddition={(value: UserCoreType) => setMemberData([...memberData, value])}
                 />
               )}

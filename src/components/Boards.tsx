@@ -10,8 +10,6 @@ interface subBoardData {
 interface BoardsProps {
   userId: string;
   boardData: subBoardData[] | [];
-  getBoardId: (value: string) => void;
-  setTaskboardStatus: (value: boolean) => void;
 }
 
 const Boards = (props: BoardsProps) => {
@@ -35,27 +33,15 @@ const Boards = (props: BoardsProps) => {
     setAddBoardStatus(false);
   };
 
-  const _handleBoardClick = (boardId: string) => {
-    props.getBoardId(boardId);
-    props.setTaskboardStatus(true);
-  };
-
   return (
     <div className="title title--xl">
       Your Boards
       <div className="flx flx--board-container mt--15">
         {boardList.length > 0 ? (
           boardList.map((value: any, idx: any) => {
-            console.log(value);
-
             return (
               !!value.title && (
-                <Link
-                  to={`/board/${value._id}`}
-                  className="card card--thumbnail"
-                  key={`board-no-${idx}`}
-                  // onClick={() => _handleBoardClick(value._id)}
-                >
+                <Link to={`/board/${value._id}`} className="card card--thumbnail" key={`board-no-${idx}`}>
                   <div className="title title--lg">{value.title}</div>
                 </Link>
               )

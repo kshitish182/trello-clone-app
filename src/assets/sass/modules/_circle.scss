@@ -5,6 +5,8 @@
   border: 2px solid $gray-1;
   position: relative;
   font-size: 12px;
+  background: $white;
+  color: $black;
 
   @include m(sm) {
     width: 25px;
@@ -21,6 +23,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  @include e(text) {
+    font-size: 14px;
+    color: $white;
+    font-weight: bold;
+    margin-left: 5px;
   }
 
   @include m(primary) {

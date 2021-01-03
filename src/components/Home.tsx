@@ -20,18 +20,13 @@ const Home = (props: HomeProps) => {
           <div className="col-sides" />
           <div className="col-mid">
             <div style={{ padding: 15 }}>
-              <Boards
-                setTaskboardStatus={setTaskboardStatus}
-                getBoardId={getBoardId}
-                userId={userData._id}
-                boardData={userData.boards}
-              />
+              <Boards userId={userData._id} boardData={userData.boards} />
             </div>
           </div>
           <div className="col-sides" />
         </main>
       ) : (
-        false && <TaskBoardWrapper boardId={boardId} />
+        false && <TaskBoardWrapper />
       )}
     </>
   );

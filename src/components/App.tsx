@@ -17,7 +17,7 @@ const App = () => {
         <Authorization setLoginStatus={setloginStatus} setUserData={setUserData} isUserLoggedIn={isUserLoggedIn} />
       ) : (
         <>
-          <Header />
+          <Header userData={userData} setLoginStatus={setloginStatus} />
           <Switch>
             <Route path="/home" render={() => <Home userData={userData} />} />
             <Route path="/board/:id" component={TaskBoardWrapper} />
