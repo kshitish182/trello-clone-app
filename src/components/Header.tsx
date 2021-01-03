@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 
 import User from '../types/user';
-import Dropdown from './common/Dropdown';
 import Icon from './common/Icons';
+import Dropdown from './common/Dropdown';
 import UserThumbnail from './common/UserThumbnail';
+import { removeUserInfoFromStorage } from '../utils/token';
 
 interface HeaderProps {
   userData: User;
@@ -17,6 +18,7 @@ const Header = (props: HeaderProps) => {
 
   const handleLogout = () => {
     props.setLoginStatus(false);
+    removeUserInfoFromStorage();
     history.push('/login');
   };
 

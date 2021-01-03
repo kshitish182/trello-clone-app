@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 
 import Login from './Login';
@@ -37,16 +38,8 @@ const Authorization = (props: AuthorizationProps) => {
       <form className="form form--auth">
         {/* Auth Routes */}
         <Switch>
-          <Route exact path="/login" render={() => <Login handleUserAuth={handleUserAuth} />} />
-          <Route exact path="/register" render={() => <Register handleUserAuth={handleUserAuth} />} />
-          <Route
-            path="/"
-            render={() => {
-              if (!props.isUserLoggedIn) {
-                return <Redirect to="/login" />;
-              }
-            }}
-          />
+          <Route path="/login" render={() => <Login handleUserAuth={handleUserAuth} />} />
+          <Route path="/register" render={() => <Register handleUserAuth={handleUserAuth} />} />
         </Switch>
       </form>
     </div>

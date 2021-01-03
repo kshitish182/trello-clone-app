@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import './assets/sass/style.scss';
 import App from './components/App';
@@ -9,7 +9,7 @@ import App from './components/App';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Route path="/" component={App} />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
