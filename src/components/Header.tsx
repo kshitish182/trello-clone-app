@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import User from '../types/user';
 import Dropdown from './common/Dropdown';
@@ -24,7 +24,9 @@ const Header = (props: HeaderProps) => {
     <header>
       <div className="container">
         <div className="col-sides">
-          <Icon name="home" viewBox="0 0 24 24" width="24" />
+          <Link to="/home">
+            <Icon name="home" viewBox="0 0 24 24" width="24" />
+          </Link>
         </div>
         <div className="col-mid">
           <div className="title title--xl text--center">
