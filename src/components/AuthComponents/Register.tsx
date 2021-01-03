@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import { registerUser } from '../../services/auth';
 interface RegisterProps {
-  handlePageChange: () => void;
   handleUserAuth: (value: () => Promise<any>) => void;
 }
 
@@ -90,9 +91,9 @@ const Register = (props: RegisterProps) => {
         </button>
       </div>
       <div className="flex__elm flx--ctr">
-        <button type="button" className="btn btn--link" onClick={props.handlePageChange}>
+        <Link to="login" className="btn btn--link">
           Sign in
-        </button>
+        </Link>
       </div>
     </>
   );

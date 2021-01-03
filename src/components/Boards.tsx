@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import { postBoard } from '../services/board';
 
 interface subBoardData {
@@ -48,13 +50,14 @@ const Boards = (props: BoardsProps) => {
 
             return (
               !!value.title && (
-                <div
+                <Link
+                  to={`/board/${value._id}`}
                   className="card card--thumbnail"
                   key={`board-no-${idx}`}
-                  onClick={() => _handleBoardClick(value._id)}
+                  // onClick={() => _handleBoardClick(value._id)}
                 >
                   <div className="title title--lg">{value.title}</div>
-                </div>
+                </Link>
               )
             );
           })

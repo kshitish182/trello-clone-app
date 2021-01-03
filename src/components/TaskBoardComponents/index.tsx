@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { updateBoardTitle } from '../../services/board';
 
 import TaskBoard from './TaskBoard';
@@ -45,6 +46,7 @@ const BoardTitleComponent = (props: { title: string; boardId: string }) => {
 };
 
 const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
+  const param: { id: string } = useParams();
   const [boardData, setBoardData] = useState<Board | null>();
   const [isLoading, setLoadingStatus] = useState<boolean>(false);
   const [memberData, setMemberData] = useState<UserCoreType[]>([]);
@@ -53,7 +55,11 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
 
   useEffect(() => {
     setLoadingStatus(true);
-    getBoard(props.boardId)
+    if (!param.id) {
+      return;
+    }
+
+    getBoard(param.id)
       .then((data: Board) => {
         setBoardData(data);
         setMemberData(data.members);
@@ -63,7 +69,7 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
         setLoadingStatus(false);
         setBoardData(null);
       });
-  }, [props.boardId]);
+  }, [param.id]);
 
   if (isLoading) {
     return <div>Loading...</div>;

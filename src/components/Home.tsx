@@ -31,7 +31,7 @@ const Home = (props: HomeProps) => {
           <div className="col-sides" />
         </main>
       ) : (
-        <TaskBoardWrapper boardId={boardId} />
+        false && <TaskBoardWrapper boardId={boardId} />
       )}
     </>
   );
