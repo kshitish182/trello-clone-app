@@ -47,7 +47,12 @@ const App = () => {
   return (
     <>
       {!isUserLoggedIn || !userData || !isUserAuthenticated ? (
-        <Authorization setLoginStatus={setloginStatus} setUserData={setUserData} isUserLoggedIn={isUserLoggedIn} />
+        <Authorization
+          setLoginStatus={setloginStatus}
+          setUserData={setUserData}
+          isUserLoggedIn={isUserLoggedIn}
+          setUserAuthStatus={setUserAuthStatus}
+        />
       ) : (
         <>
           <Header userData={userData} setLoginStatus={setloginStatus} />

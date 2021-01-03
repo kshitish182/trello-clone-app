@@ -8,6 +8,7 @@ interface AuthorizationProps {
   isUserLoggedIn: boolean;
   setUserData: (value: User) => void;
   setLoginStatus: (value: boolean) => void;
+  setUserAuthStatus: (value: boolean) => void;
 }
 
 const Authorization = (props: AuthorizationProps) => {
@@ -22,6 +23,7 @@ const Authorization = (props: AuthorizationProps) => {
 
     props.setUserData(result);
     props.setLoginStatus(true);
+    props.setUserAuthStatus(true);
     history.push('/home');
   };
 
