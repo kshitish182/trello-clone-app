@@ -10,6 +10,7 @@ import { removeUserInfoFromStorage } from '../utils/token';
 interface HeaderProps {
   userData: User;
   setLoginStatus: (value: boolean) => void;
+  setUserAuthStatus: (value: boolean) => void;
 }
 
 const Header = (props: HeaderProps) => {
@@ -18,6 +19,7 @@ const Header = (props: HeaderProps) => {
 
   const handleLogout = () => {
     props.setLoginStatus(false);
+    props.setUserAuthStatus(false);
     removeUserInfoFromStorage();
     history.push('/login');
   };

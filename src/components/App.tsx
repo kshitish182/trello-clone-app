@@ -12,7 +12,7 @@ import { getUserInfoFromStorage } from '../utils/token';
 const App = () => {
   const [userData, setUserData] = useState<User>();
   const [isUserLoggedIn, setloginStatus] = useState<boolean>(false);
-  const [isVerifying, setLoadingStatus] = useState<boolean>(false);
+  const [isVerifying, setLoadingStatus] = useState<boolean>(true);
   const [isUserAuthenticated, setUserAuthStatus] = useState<boolean>(false);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const App = () => {
 
   return (
     <>
-      {!isUserLoggedIn || !userData || !isUserAuthenticated ? (
+      {!userData || !isUserAuthenticated ? (
         <Authorization
           setLoginStatus={setloginStatus}
           setUserData={setUserData}
@@ -55,14 +55,18 @@ const App = () => {
         />
       ) : (
         <>
-          <Header userData={userData} setLoginStatus={setloginStatus} />
+          <Header userData={userData} setLoginStatus={setloginStatus} setUserAuthStatus={setUserAuthStatus} />
           <Switch>
-            <Route path="/home" render={() => <Home userData={userData} />} />
-            <Route path="/board/:id" component={TaskBoardWrapper} />
+            <Route exact path="/board/:id" component={TaskBoardWrapper} />
+            <Route exact path="/home" render={() => <Home userData={userData} />} />
           </Switch>
         </>
       )}
-      <Route path="/" render={() => (isUserAuthenticated ? <Redirect to="/home" /> : <Redirect to="/login" />)} />
+      <Route
+        exact
+        path="/"
+        render={() => (isUserAuthenticated ? <Redirect to={'/home'} /> : <Redirect to="/login" />)}
+      />
     </>
   );
 };

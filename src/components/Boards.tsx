@@ -23,11 +23,12 @@ const Boards = (props: BoardsProps) => {
 
     // post the board and update state if request is successful
     const result = await postBoard(props.userId, e.target.value);
-    const boardData = { _id: result, title: e.target.value };
     console.log(result);
     if (!result) {
       return;
     }
+
+    const boardData = { _id: result, title: e.target.value };
 
     updateBoardList([...boardList, boardData]);
     setAddBoardStatus(false);
