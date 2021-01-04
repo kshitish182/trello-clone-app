@@ -27,4 +27,10 @@
       }
     }
   }
+
+  @include e(title) {
+    font-weight: bold;
+    color: $gray-1;
+    padding-bottom: 5px;
+  }
 }

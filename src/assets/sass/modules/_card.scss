@@ -35,4 +35,18 @@
   @include e(body) {
     padding: 0 15px;
   }
+
+  @include e(action) {
+    opacity: 0;
+
+    &.active {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    .card__action {
+      opacity: 1;
+    }
+  }
 }

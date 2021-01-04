@@ -42,4 +42,25 @@
       color: $link--hover;
     }
   }
+
+  @include m(icon) {
+    &:hover,
+    &.active {
+      .icon {
+        path {
+          fill: $gray-1;
+        }
+
+        &--dot-menu {
+          path {
+            fill: none;
+          }
+
+          circle {
+            fill: $gray-1;
+          }
+        }
+      }
+    }
+  }
 }

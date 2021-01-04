@@ -1,5 +1,8 @@
 import { useState } from 'react';
+import classnames from 'classnames';
 
+import Icon from '../common/Icons';
+import Dropdown from '../common/Dropdown';
 import CreateElement from './CreateElement';
 import { List, Card } from '../../types/board';
 import { UserCoreType } from '../../types/user';
@@ -15,6 +18,7 @@ interface ListProps {
 const ListItem = (props: ListProps) => {
   const { listData, boardId } = props;
   const [showInput, setInputBlockStatus] = useState<boolean>(false);
+  const [showCardMenu, setCardMenuStatus] = useState<boolean>(false);
   const [cardList, updateCardList] = useState<(Card | null)[]>(listData.cards);
 
   const handleCardCreation = async (cardName: string) => {
@@ -40,6 +44,8 @@ const ListItem = (props: ListProps) => {
     setInputBlockStatus(false);
   };
 
+  const menuBtnClass = classnames('btn btn--icon ml--5 card__action', { active: showCardMenu });
+
   return (
     <div className="flx__col">
       <div className="card card--list">
@@ -56,9 +62,20 @@ const ListItem = (props: ListProps) => {
               return (
                 cardData.title && (
                   <div id={`cardNode-${idx}`} className="card">
-                    <div className="card__header flx">
+                    <div className="card__header flx flx--algn-ctr">
                       <div className="title flx--algn-start">{cardData.title}</div>
                       <UserThumbnail className="ml--auto" userData={assigneeData} />
+                      <Dropdown setDropdownStatus={setCardMenuStatus}>
+                        <button className={menuBtnClass} onClick={() => setCardMenuStatus(!showCardMenu)}>
+                          <Icon name="dot-menu" width="20" className="icon--pull" viewBox="0 0 24 24" />
+                        </button>
+                        {showCardMenu && (
+                          <ul className="dropdown__menu">
+                            <li className="dropdown__item dropdown__title">title</li>
+                            <li className="dropdown__item">List item</li>
+                          </ul>
+                        )}
+                      </Dropdown>
                     </div>
                   </div>
                 )
