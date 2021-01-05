@@ -20,6 +20,7 @@ const Dropdown = (props: React.PropsWithChildren<DropdownProps>) => {
       return;
     }
 
+    console.log(dropdownNode.current, dropdownNode.current?.contains(e.target));
     props.setDropdownStatus(false);
   };
 
