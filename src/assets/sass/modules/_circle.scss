@@ -18,6 +18,11 @@
     height: 40px;
   }
 
+  @include m(xs) {
+    width: 20px;
+    height: 20px;
+  }
+
   @include e(content) {
     position: absolute;
     top: 50%;

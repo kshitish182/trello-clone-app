@@ -4,7 +4,7 @@ import ListItem from './List';
 import CreateElement from './CreateElement';
 import Board, { List } from '../../types/board';
 import { UserCoreType } from '../../types/user';
-import { createList } from '../../services/list';
+import { createList, updateList } from '../../services/list';
 
 interface TaskBoardProps {
   boardData: Board;
@@ -63,21 +63,63 @@ const TaskBoard = (props: TaskBoardProps) => {
     updateListData(updatedList);
   };
 
+  const handlePositionChange = async (pos: 'right' | 'left', movedList: List) => {
+    const movedListIndex = listData.indexOf(movedList);
+    const updatedList = listData.map((listValue: List, idx: number) => {
+      console.log(movedListIndex);
+      if (pos === 'right') {
+        if (movedListIndex === idx) {
+          return { ...listValue, level: listValue.level + 1 };
+        }
+
+        if (movedListIndex + 1 === idx) {
+          return { ...listValue, level: listValue.level - 1 };
+        }
+      }
+
+      if (pos === 'left') {
+        if (movedListIndex === idx) {
+          return { ...listValue, level: listValue.level - 1 };
+        }
+
+        if (movedListIndex - 1 === idx) {
+          return { ...listValue, level: listValue.level + 1 };
+        }
+      }
+
+      return listValue;
+    });
+
+    updateListData(updatedList);
+
+    const result = await updateList(boardData._id, updatedList);
+
+    if (result) {
+      return;
+    }
+
+    console.log("There was an error - could'nt update list");
+  };
+
   return (
     <div>
       <div className="flx board__content">
-        {listData.map((value: List, index: number) => (
-          <React.Fragment key={`list-name-${index}`}>
-            <ListItem
-              listData={value}
-              boardId={boardData._id}
-              moveCard={moveCard}
-              memberData={props.memberData}
-              possibleCardMoveDirection={possibleCardMoveDirection}
-              calculatePossibleCardMovePosition={calculatePossibleCardMoveDirection}
-            />
-          </React.Fragment>
-        ))}
+        {listData
+          .sort((value: List, nextValue: List) => value.level - nextValue.level)
+          .map((value: List, index: number) => (
+            <React.Fragment key={`list-name-${index}`}>
+              <ListItem
+                listData={value}
+                listSize={listData.length}
+                boardId={boardData._id}
+                moveCard={moveCard}
+                memberData={props.memberData}
+                handlePositionChange={handlePositionChange}
+                possibleCardMoveDirection={possibleCardMoveDirection}
+                calculatePossibleCardMovePosition={calculatePossibleCardMoveDirection}
+              />
+            </React.Fragment>
+          ))}
         <div className="flx__col">
           {showInput ? (
             <div className="card card--list mr--20" style={{ padding: 20 }}>

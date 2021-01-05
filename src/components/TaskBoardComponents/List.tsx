@@ -12,6 +12,8 @@ import { createCard, updateCardOwner, updateCard } from '../../services/card';
 interface ListProps {
   listData: List;
   boardId: string;
+  listSize: number;
+  handlePositionChange: (pos: 'right' | 'left', value: List) => void;
   memberData: UserCoreType[];
   possibleCardMoveDirection: (List | null)[];
   moveCard: (newlistData: List, oldListData: List, cardData: any) => void;
@@ -80,8 +82,22 @@ const ListItem = (props: ListProps) => {
   return (
     <div className="flx__col">
       <div className="card card--list">
-        <div className="card__header">
+        <div className="card__header flx flx--algn-ctr">
           <div className="title title--lg">{listData.name}</div>
+          <div className="ml--auto card__action">
+            {listData.level !== 0 && (
+              <button className="btn btn--icon" onClick={() => props.handlePositionChange('left', listData)}>
+                <Icon className="icon--pull" name="chevron" width="20" viewBox="0 0 24 24" />
+              </button>
+            )}
+            {props.listSize !== listData.level + 1 && (
+              <button className="btn btn--icon" onClick={() => props.handlePositionChange('right', listData)}>
+                <span className="rotate--180">
+                  <Icon className="icon--pull" name="chevron" width="20" viewBox="0 0 24 24" />
+                </span>
+              </button>
+            )}
+          </div>
         </div>
         {cardList.length > 0 ? (
           <div className="card__body">

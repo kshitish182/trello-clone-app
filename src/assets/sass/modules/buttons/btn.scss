@@ -44,6 +44,20 @@
   }
 
   @include m(icon) {
+    .icon {
+      &--chevron {
+        path {
+          fill: none;
+        }
+
+        polyline {
+          fill: none;
+          stroke: $gray-1;
+          stroke-width: 2;
+        }
+      }
+    }
+
     &:hover,
     &.active {
       .icon {
@@ -58,6 +72,18 @@
 
           circle {
             fill: $gray-1;
+          }
+        }
+
+        &--chevron {
+          path {
+            fill: none;
+          }
+
+          polyline {
+            fill: none;
+            stroke: $gray-1;
+            stroke-width: 2;
           }
         }
       }

@@ -33,6 +33,14 @@ const Icon = (props: IconProps) => {
           </g>
         );
 
+      case 'chevron':
+        return (
+          <g>
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <polyline points="15 6 9 12 15 18" />
+          </g>
+        );
+
       default:
         return <g></g>;
     }
