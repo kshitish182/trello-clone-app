@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classnames from 'classnames';
 
 import Icon from '../common/Icons';
@@ -6,13 +6,16 @@ import Dropdown from '../common/Dropdown';
 import CreateElement from './CreateElement';
 import { List, Card } from '../../types/board';
 import { UserCoreType } from '../../types/user';
-import { createCard } from '../../services/card';
+import { createCard, updateCardOwner } from '../../services/card';
 import UserThumbnail from '../common/UserThumbnail';
 
 interface ListProps {
   listData: List;
   boardId: string;
   memberData: UserCoreType[];
+  possibleCardMoveDirection: (List | null)[];
+  moveCard: (newlistData: List, oldListData: List, cardData: any) => void;
+  calculatePossibleCardMovePosition: (value: string) => void;
 }
 
 const ListItem = (props: ListProps) => {
@@ -44,7 +47,14 @@ const ListItem = (props: ListProps) => {
     setInputBlockStatus(false);
   };
 
+  useEffect(() => updateCardList(listData.cards), [listData]);
+
   const menuBtnClass = classnames('btn btn--icon ml--5 card__action', { active: showCardMenu });
+
+  const handleMenuClick = (listId: string) => {
+    setCardMenuStatus(!showCardMenu);
+    props.calculatePossibleCardMovePosition(listId);
+  };
 
   return (
     <div className="flx__col">
@@ -66,13 +76,41 @@ const ListItem = (props: ListProps) => {
                       <div className="title flx--algn-start">{cardData.title}</div>
                       <UserThumbnail className="ml--auto" userData={assigneeData} />
                       <Dropdown setDropdownStatus={setCardMenuStatus}>
-                        <button className={menuBtnClass} onClick={() => setCardMenuStatus(!showCardMenu)}>
+                        <button className={menuBtnClass} onClick={() => handleMenuClick(listData._id)}>
                           <Icon name="dot-menu" width="20" className="icon--pull" viewBox="0 0 24 24" />
                         </button>
                         {showCardMenu && (
                           <ul className="dropdown__menu">
-                            <li className="dropdown__item dropdown__title">title</li>
-                            <li className="dropdown__item">List item</li>
+                            {!!props.possibleCardMoveDirection.length && (
+                              <>
+                                <li className="dropdown__item dropdown__title">Move to</li>
+                                {props.possibleCardMoveDirection.map(
+                                  (value: List | null) =>
+                                    value?.name && (
+                                      <li
+                                        className="dropdown__item"
+                                        onClick={async () => {
+                                          setCardMenuStatus(false);
+                                          props.moveCard(value, listData, cardData);
+
+                                          const result = await updateCardOwner(boardId, {
+                                            _id: cardData._id,
+                                            ownedBy: value._id,
+                                          });
+
+                                          if (result) {
+                                            return;
+                                          }
+
+                                          console.log('There was an error while updating list');
+                                        }}
+                                      >
+                                        {value.name}
+                                      </li>
+                                    )
+                                )}
+                              </>
+                            )}
                           </ul>
                         )}
                       </Dropdown>

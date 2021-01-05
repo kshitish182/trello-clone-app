@@ -11,3 +11,14 @@ export const createCard = async (boardId: string, data: { title: string; ownedBy
     return null;
   }
 };
+
+export const updateCardOwner = async (boardId: string, data: { _id: string; ownedBy: string }) => {
+  try {
+    const result = await http.put(appendToEndpoint('updateCardOwner', boardId), data);
+    return result.data;
+  } catch (err) {
+    console.log(err.response.data);
+
+    return null;
+  }
+};
