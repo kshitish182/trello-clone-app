@@ -8,6 +8,13 @@
   background: $white;
   color: $black;
 
+  @include m(plain) {
+    border: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   @include m(sm) {
     width: 25px;
     height: 25px;
@@ -32,7 +39,7 @@
 
   @include e(text) {
     font-size: 14px;
-    color: $white;
+    color: $black;
     font-weight: bold;
     margin-left: 5px;
   }

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { loginUser } from '../../services/auth';
 interface LoginProps {
+  err: boolean;
   handleUserAuth: (value: () => Promise<any>) => void;
 }
 
@@ -37,6 +38,7 @@ const Login = (props: LoginProps) => {
           placeholder="Enter your password"
         />
       </div>
+      {props.err && <div className="text--err">Could'nt log in - Incorrect Username or password</div>}
       <div className="form__elm mt--25">
         <button
           type="button"

@@ -51,12 +51,12 @@ const CardComponent = (props: CardProps) => {
         <div className="card__header flx flx--algn-ctr">
           <div className="title flx--algn-start">{cardData.title}</div>
           <UserThumbnail className="ml--auto" userData={assigneeData} />
-          <div className="dropdown">
+          <div className="dropdown right">
             <button className={menuBtnClass} onClick={() => handleMenuClick(listData._id)}>
               <Icon name="dot-menu" width="20" className="icon--pull" viewBox="0 0 24 24" />
             </button>
             {showCardMenu && (
-              <ul className="dropdown__menu">
+              <ul className="dropdown__menu sm">
                 <li
                   className="dropdown__item clickable"
                   onClick={() => {

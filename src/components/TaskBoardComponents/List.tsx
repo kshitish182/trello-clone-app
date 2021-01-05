@@ -75,14 +75,20 @@ const ListItem = (props: ListProps) => {
       <div className="card card--list">
         <div className="card__header flx flx--algn-ctr">
           <div className="title title--lg">{listData.name}</div>
-          <div className="ml--auto card__action">
+          <div className="ml--auto card__action flx flx--algn-ctr">
             {listData.level !== 0 && (
-              <button className="btn btn--icon" onClick={() => props.handlePositionChange('left', listData)}>
+              <button
+                className="btn btn--icon circle circle--plain circle--xs"
+                onClick={() => props.handlePositionChange('left', listData)}
+              >
                 <Icon className="icon--pull" name="chevron" width="20" viewBox="0 0 24 24" />
               </button>
             )}
             {props.listSize !== listData.level + 1 && (
-              <button className="btn btn--icon" onClick={() => props.handlePositionChange('right', listData)}>
+              <button
+                className="btn btn--icon ml--5 circle circle--plain circle--xs"
+                onClick={() => props.handlePositionChange('right', listData)}
+              >
                 <span className="rotate--180">
                   <Icon className="icon--pull" name="chevron" width="20" viewBox="0 0 24 24" />
                 </span>

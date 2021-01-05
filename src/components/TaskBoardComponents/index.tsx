@@ -9,6 +9,7 @@ import CreateElement from './CreateElement';
 import AddMemberPopup from './AddMemberPopUp';
 import { getBoard } from '../../services/board';
 import { UserCoreType } from '../../types/user';
+import UserThumbnail from '../common/UserThumbnail';
 
 const BoardTitleComponent = (props: { title: string; boardId: string }) => {
   const [isEditing, setEditStatus] = useState<boolean>(false);
@@ -35,7 +36,7 @@ const BoardTitleComponent = (props: { title: string; boardId: string }) => {
       isLoading={isEditing}
       onSubmitHandler={handleTitleUpdate}
       onCancelHandler={() => setTitleEditViewStatus(false)}
-      className="createElm--inline"
+      className="createElm--inline createElm--card"
       defaultValue={boardTitle}
     />
   );
@@ -107,7 +108,11 @@ const TaskBoardWrapper = () => {
                   {!memberData.length ? (
                     <div>No members added</div>
                   ) : (
-                    memberData.map((value: UserCoreType) => <li className="dropdown__item">{value.firstName}</li>)
+                    memberData.map((value: UserCoreType) => (
+                      <li className="dropdown__item">
+                        <UserThumbnail userData={value} showFullName />
+                      </li>
+                    ))
                   )}
                 </ul>
               )}
