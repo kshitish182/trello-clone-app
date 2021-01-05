@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import { loginUser } from '../../services/auth';
 interface LoginProps {
-  handlePageChange: () => void;
+  err: boolean;
   handleUserAuth: (value: () => Promise<any>) => void;
 }
 
@@ -36,6 +38,7 @@ const Login = (props: LoginProps) => {
           placeholder="Enter your password"
         />
       </div>
+      {props.err && <div className="text--err">Could'nt log in - Incorrect Username or password</div>}
       <div className="form__elm mt--25">
         <button
           type="button"
@@ -46,9 +49,9 @@ const Login = (props: LoginProps) => {
         </button>
       </div>
       <div className="form__elm flx--ctr">
-        <button type="button" className="btn btn--link" onClick={props.handlePageChange}>
+        <Link to="register" className="btn btn--link">
           Register
-        </button>
+        </Link>
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useCreateElmHandler = (ref: any): [boolean, (value: boolean) => void] => {
+export const useDropdown = (ref: any): [boolean, (value: boolean) => void] => {
   const [isInputPopupOpen, setInputPopupVisible] = useState<boolean>(false);
 
   useEffect(() => {
@@ -13,9 +13,6 @@ export const useCreateElmHandler = (ref: any): [boolean, (value: boolean) => voi
     if (ref && ref.current && ref.current.contains(e.target)) {
       return;
     }
-
-    console.log('herre', ref.current.contains(e.target));
-
     setInputPopupVisible(false);
   };
 

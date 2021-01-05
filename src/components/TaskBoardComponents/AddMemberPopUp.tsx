@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import { useEffect, useState } from 'react';
 
 import { UserCoreType } from '../../types/user';
+import UserThumbnail from '.././common/UserThumbnail';
 import { addUserInBoard } from '../../services/board';
 import { getAllNonMemberUsers } from '../../services/users';
 
@@ -58,7 +59,7 @@ const AddMemberPopup = (props: AddMemberPopUp) => {
             (value: UserCoreType | null) =>
               value && (
                 <li className="dropdown__item dropdown__item--w-actions">
-                  <span>{value.firstName}</span>
+                  <UserThumbnail userData={value} showFullName={true} />
                   <button className={addButtonClass} onClick={() => handleAddBtnAction(value)}>
                     Add
                   </button>

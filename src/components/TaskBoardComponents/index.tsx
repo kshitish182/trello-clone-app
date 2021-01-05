@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { updateBoardTitle } from '../../services/board';
 
 import TaskBoard from './TaskBoard';
@@ -8,10 +9,7 @@ import CreateElement from './CreateElement';
 import AddMemberPopup from './AddMemberPopUp';
 import { getBoard } from '../../services/board';
 import { UserCoreType } from '../../types/user';
-
-interface TaskBoardWrapperProps {
-  boardId: string;
-}
+import UserThumbnail from '../common/UserThumbnail';
 
 const BoardTitleComponent = (props: { title: string; boardId: string }) => {
   const [isEditing, setEditStatus] = useState<boolean>(false);
@@ -38,13 +36,14 @@ const BoardTitleComponent = (props: { title: string; boardId: string }) => {
       isLoading={isEditing}
       onSubmitHandler={handleTitleUpdate}
       onCancelHandler={() => setTitleEditViewStatus(false)}
-      className="createElm--inline"
+      className="createElm--inline createElm--card"
       defaultValue={boardTitle}
     />
   );
 };
 
-const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
+const TaskBoardWrapper = () => {
+  const param: { id: string } = useParams();
   const [boardData, setBoardData] = useState<Board | null>();
   const [isLoading, setLoadingStatus] = useState<boolean>(false);
   const [memberData, setMemberData] = useState<UserCoreType[]>([]);
@@ -53,7 +52,11 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
 
   useEffect(() => {
     setLoadingStatus(true);
-    getBoard(props.boardId)
+    if (!param.id) {
+      return;
+    }
+
+    getBoard(param.id)
       .then((data: Board) => {
         setBoardData(data);
         setMemberData(data.members);
@@ -63,7 +66,7 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
         setLoadingStatus(false);
         setBoardData(null);
       });
-  }, [props.boardId]);
+  }, [param.id]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -78,7 +81,7 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
       <div className="board page-offset">
         <div className="col-mid col-mid--dashboard">
           <div className="action-bar flx flx--algn-ctr">
-            <BoardTitleComponent title={boardData.title} boardId={props.boardId} />
+            <BoardTitleComponent title={boardData.title} boardId={param.id} />
             <Dropdown className="ml--15" setDropdownStatus={setAddTeamMemberDropdownStatus}>
               <button
                 className="btn btn--primary"
@@ -88,7 +91,7 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
               </button>
               {showAddTeamMemberDropdown && (
                 <AddMemberPopup
-                  boardId={props.boardId}
+                  boardId={param.id}
                   handleMemberAddition={(value: UserCoreType) => setMemberData([...memberData, value])}
                 />
               )}
@@ -105,7 +108,11 @@ const TaskBoardWrapper = (props: TaskBoardWrapperProps) => {
                   {!memberData.length ? (
                     <div>No members added</div>
                   ) : (
-                    memberData.map((value: UserCoreType) => <li className="dropdown__item">{value.firstName}</li>)
+                    memberData.map((value: UserCoreType) => (
+                      <li className="dropdown__item">
+                        <UserThumbnail userData={value} showFullName />
+                      </li>
+                    ))
                   )}
                 </ul>
               )}

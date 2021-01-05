@@ -30,6 +30,10 @@
   margin-left: 15px;
 }
 
+.ml--5 {
+  margin-left: 5px;
+}
+
 .ml--auto {
   margin-left: auto;
 }
@@ -90,4 +94,40 @@
 
 .clickable {
   cursor: pointer;
+}
+
+.ds--in-block {
+  display: inline-block;
+}
+
+.icon--pull {
+  margin: -5px;
+}
+
+.list {
+  margin-bottom: 20px;
+
+  @include e(item) {
+    padding: 10px 15px;
+  }
+}
+
+.card__body {
+  .list__item {
+    padding: 10px 0;
+  }
+}
+
+.rotate--180 {
+  display: inline-block;
+  transform: rotate(180deg);
+}
+
+.createElm--card {
+  background: $white;
+  border-radius: 4px;
+
+  .input {
+    border: transparent;
+  }
 }

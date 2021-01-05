@@ -1,25 +1,30 @@
 import { useState } from 'react';
+import { Switch, Route, useHistory } from 'react-router-dom';
 
 import Login from './Login';
 import Register from './Register';
 import User from '../../types/user';
 interface AuthorizationProps {
-  setLoginStatus: (value: boolean) => void;
+  isUserLoggedIn: boolean;
   setUserData: (value: User) => void;
+  setLoginStatus: (value: boolean) => void;
+  setUserAuthStatus: (value: boolean) => void;
 }
 
 const Authorization = (props: AuthorizationProps) => {
-  const [isLoginPage, setPageStatus] = useState<boolean>(true);
-
+  const history = useHistory();
+  const [err, setError] = useState<boolean>(false);
   const handleUserAuth = async (authHandler: () => Promise<any>) => {
     const result = await authHandler();
 
     if (!result) {
-      return;
+      return setError(true);
     }
 
     props.setUserData(result);
     props.setLoginStatus(true);
+    props.setUserAuthStatus(true);
+    history.push('/home');
   };
 
   return (
@@ -28,14 +33,16 @@ const Authorization = (props: AuthorizationProps) => {
         <img
           src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/76ceb1faa939ede03abacb6efacdde16/trello-logo-blue.svg"
           className="main-logo"
+          alt="main-logo"
         />
       </div>
+
       <form className="form form--auth">
-        {isLoginPage ? (
-          <Login handlePageChange={() => setPageStatus(false)} handleUserAuth={handleUserAuth} />
-        ) : (
-          <Register handlePageChange={() => setPageStatus(true)} handleUserAuth={handleUserAuth} />
-        )}
+        {/* Auth Routes */}
+        <Switch>
+          <Route path="/login" render={() => <Login handleUserAuth={handleUserAuth} err={err} />} />
+          <Route path="/register" render={() => <Register handleUserAuth={handleUserAuth} />} />
+        </Switch>
       </form>
     </div>
   );

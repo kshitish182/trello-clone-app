@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import { postBoard } from '../services/board';
 
 interface subBoardData {
@@ -8,8 +10,6 @@ interface subBoardData {
 interface BoardsProps {
   userId: string;
   boardData: subBoardData[] | [];
-  getBoardId: (value: string) => void;
-  setTaskboardStatus: (value: boolean) => void;
 }
 
 const Boards = (props: BoardsProps) => {
@@ -23,19 +23,15 @@ const Boards = (props: BoardsProps) => {
 
     // post the board and update state if request is successful
     const result = await postBoard(props.userId, e.target.value);
-    const boardData = { _id: result, title: e.target.value };
     console.log(result);
     if (!result) {
       return;
     }
 
+    const boardData = { _id: result, title: e.target.value };
+
     updateBoardList([...boardList, boardData]);
     setAddBoardStatus(false);
-  };
-
-  const _handleBoardClick = (boardId: string) => {
-    props.getBoardId(boardId);
-    props.setTaskboardStatus(true);
   };
 
   return (
@@ -44,17 +40,11 @@ const Boards = (props: BoardsProps) => {
       <div className="flx flx--board-container mt--15">
         {boardList.length > 0 ? (
           boardList.map((value: any, idx: any) => {
-            console.log(value);
-
             return (
               !!value.title && (
-                <div
-                  className="card card--thumbnail"
-                  key={`board-no-${idx}`}
-                  onClick={() => _handleBoardClick(value._id)}
-                >
+                <Link to={`/board/${value._id}`} className="card card--thumbnail" key={`board-no-${idx}`}>
                   <div className="title title--lg">{value.title}</div>
-                </div>
+                </Link>
               )
             );
           })

@@ -1,6 +1,13 @@
 .dropdown {
   position: relative;
 
+  &.right {
+    .dropdown__menu {
+      right: 0;
+      left: auto;
+    }
+  }
+
   @include e(menu) {
     position: absolute;
     width: 250px;
@@ -11,6 +18,11 @@
     background: $white;
     color: initial;
     box-shadow: 0 1px 3px 3px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+
+    &.sm {
+      width: 150px;
+    }
   }
 
   @include e(item) {
@@ -25,5 +37,12 @@
         display: none;
       }
     }
+  }
+
+  @include e(title) {
+    font-weight: bold;
+    font-size: 12px;
+    color: $gray-1;
+    padding-bottom: 5px;
   }
 }

@@ -23,6 +23,24 @@ const Icon = (props: IconProps) => {
           </g>
         );
 
+      case 'dot-menu':
+        return (
+          <g>
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <circle cx="12" cy="12" r="1" />
+            <circle cx="12" cy="19" r="1" />
+            <circle cx="12" cy="5" r="1" />
+          </g>
+        );
+
+      case 'chevron':
+        return (
+          <g>
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <polyline points="15 6 9 12 15 18" />
+          </g>
+        );
+
       default:
         return <g></g>;
     }
@@ -30,7 +48,7 @@ const Icon = (props: IconProps) => {
 
   return (
     <svg
-      className={classnames('icon', props.className)}
+      className={classnames(`icon icon--${props.name}`, props.className)}
       width={props.width || 36}
       height={props.height || props.width || 36}
       viewBox={props.viewBox || '0 0 36 36'}

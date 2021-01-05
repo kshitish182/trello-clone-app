@@ -5,6 +5,15 @@
   border: 2px solid $gray-1;
   position: relative;
   font-size: 12px;
+  background: $white;
+  color: $black;
+
+  @include m(plain) {
+    border: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   @include m(sm) {
     width: 25px;
@@ -16,11 +25,23 @@
     height: 40px;
   }
 
+  @include m(xs) {
+    width: 20px;
+    height: 20px;
+  }
+
   @include e(content) {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  @include e(text) {
+    font-size: 14px;
+    color: $black;
+    font-weight: bold;
+    margin-left: 5px;
   }
 
   @include m(primary) {

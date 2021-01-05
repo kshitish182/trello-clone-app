@@ -8,6 +8,10 @@ header {
   right: 0;
   z-index: 10;
   max-height: 40px;
+
+  .circle__text {
+    color: $white;
+  }
 }
 
 .header {

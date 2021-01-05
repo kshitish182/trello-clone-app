@@ -42,4 +42,51 @@
       color: $link--hover;
     }
   }
+
+  @include m(icon) {
+    .icon {
+      &--chevron {
+        path {
+          fill: none;
+        }
+
+        polyline {
+          fill: none;
+          stroke: $gray-1;
+          stroke-width: 2;
+        }
+      }
+    }
+
+    &:hover,
+    &.active {
+      .icon {
+        path {
+          fill: $gray-1;
+        }
+
+        &--dot-menu {
+          path {
+            fill: none;
+          }
+
+          circle {
+            fill: $gray-1;
+          }
+        }
+
+        &--chevron {
+          path {
+            fill: none;
+          }
+
+          polyline {
+            fill: none;
+            stroke: $gray-1;
+            stroke-width: 2;
+          }
+        }
+      }
+    }
+  }
 }
