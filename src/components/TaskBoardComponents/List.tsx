@@ -6,8 +6,8 @@ import Dropdown from '../common/Dropdown';
 import CreateElement from './CreateElement';
 import { List, Card } from '../../types/board';
 import { UserCoreType } from '../../types/user';
-import { createCard, updateCardOwner } from '../../services/card';
 import UserThumbnail from '../common/UserThumbnail';
+import { createCard, updateCardOwner, updateCard } from '../../services/card';
 
 interface ListProps {
   listData: List;
@@ -18,10 +18,15 @@ interface ListProps {
   calculatePossibleCardMovePosition: (value: string) => void;
 }
 
+// TODO: Breakdown into multiple components
+
 const ListItem = (props: ListProps) => {
   const { listData, boardId } = props;
+  const [showModal, setModalStatus] = useState<boolean>(false);
   const [showInput, setInputBlockStatus] = useState<boolean>(false);
   const [showCardMenu, setCardMenuStatus] = useState<boolean>(false);
+  const [cardValue, updateCardData] = useState<Card>();
+  const [assignableMember, setAssignableMember] = useState<UserCoreType[]>();
   const [cardList, updateCardList] = useState<(Card | null)[]>(listData.cards);
 
   const handleCardCreation = async (cardName: string) => {
@@ -56,6 +61,22 @@ const ListItem = (props: ListProps) => {
     props.calculatePossibleCardMovePosition(listId);
   };
 
+  const handleAssignMember = async (card: any, assignee: string) => {
+    const result = await updateCard(card._id, { title: card.title, assignee: assignee, description: card.description });
+    const updatedCard = { ...card, assignee: assignee };
+
+    if (!result) {
+      return;
+    }
+
+    updateCardList([
+      ...cardList.slice(0, cardList.indexOf(card)),
+      updatedCard,
+      ...cardList.slice(cardList.indexOf(card) + 1),
+    ]);
+    setModalStatus(false);
+  };
+
   return (
     <div className="flx__col">
       <div className="card card--list">
@@ -81,6 +102,19 @@ const ListItem = (props: ListProps) => {
                         </button>
                         {showCardMenu && (
                           <ul className="dropdown__menu">
+                            <li
+                              className="dropdown__item clickable"
+                              onClick={() => {
+                                setModalStatus(true);
+                                updateCardData(cardData);
+                                setAssignableMember(
+                                  props.memberData.filter((value: UserCoreType) => value._id !== cardData.assignee)
+                                );
+                                setCardMenuStatus(false);
+                              }}
+                            >
+                              Assign to
+                            </li>
                             {!!props.possibleCardMoveDirection.length && (
                               <>
                                 <li className="dropdown__item dropdown__title">Move to</li>
@@ -88,7 +122,7 @@ const ListItem = (props: ListProps) => {
                                   (value: List | null) =>
                                     value?.name && (
                                       <li
-                                        className="dropdown__item"
+                                        className="dropdown__item clickable"
                                         onClick={async () => {
                                           setCardMenuStatus(false);
                                           props.moveCard(value, listData, cardData);
@@ -135,6 +169,35 @@ const ListItem = (props: ListProps) => {
           )}
         </div>
       </div>
+      {showModal && (
+        <div className="modal card">
+          <div className="card__header flx">
+            <div className="title title--lg">Assign to</div>
+            <button className="btn ml--auto" onClick={() => setModalStatus(false)}>
+              X
+            </button>
+          </div>
+          <div className="card__body">
+            {!assignableMember || !assignableMember.length ? (
+              <div>No members to assign</div>
+            ) : (
+              <ul className="list">
+                {assignableMember.map((value: UserCoreType) => (
+                  <li className="list__item flx flx--algn-ctr">
+                    <span>{value.firstName}</span>
+                    <button
+                      className="btn btn--thin btn--success ml--auto"
+                      onClick={() => handleAssignMember(cardValue, value._id)}
+                    >
+                      Add
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -22,3 +22,13 @@ export const updateCardOwner = async (boardId: string, data: { _id: string; owne
     return null;
   }
 };
+
+export const updateCard = async (cardId: string, payload: { title: string; assignee: string; description: string }) => {
+  try {
+    const result = await http.put(`card/${cardId}/update`, payload);
+
+    return result.data;
+  } catch (err) {
+    console.log(err.response.data);
+  }
+};
