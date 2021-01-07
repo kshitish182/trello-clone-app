@@ -1,11 +1,13 @@
+import dotenv from 'dotenv';
 import axios from 'axios';
-
 import { http } from '../utils/http';
-import { setUserInfoInStorage, getUserInfoFromStorage } from '../utils/token';
+import { setUserInfoInStorage } from '../utils/token';
+
+dotenv.config();
 
 export const registerUser = async (userData: any) => {
   try {
-    const result = await axios.post('http://localhost:5000/register', userData);
+    const result = await axios.post(`${process.env.REACT_APP_API_URI}/register`, userData);
     if (result.data.status === 201) {
       const { data } = result.data;
       setUserInfoInStorage({ email: data.email, token: data.accessToken });
@@ -25,7 +27,7 @@ export const registerUser = async (userData: any) => {
 
 export const loginUser = async (userData: any) => {
   try {
-    const result = await axios.post('http://localhost:5000/login', userData);
+    const result = await axios.post(`${process.env.REACT_APP_API_URI}/login`, userData);
     if (result.data.status === 200) {
       const { data } = result.data;
       setUserInfoInStorage({ email: data.email, token: data.accessToken });
@@ -48,7 +50,7 @@ export const loginUser = async (userData: any) => {
 
 export const verifyToken = async (payload: { accessToken: string; email: string }) => {
   try {
-    const result = await http.post('http://localhost:5000/verify-token', payload);
+    const result = await http.post(`${process.env.REACT_APP_API_URI}/verify-token`, payload);
     const { data } = result.data;
 
     return data;
