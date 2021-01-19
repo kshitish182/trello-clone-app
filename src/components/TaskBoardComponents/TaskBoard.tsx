@@ -45,10 +45,10 @@ const TaskBoard = (props: TaskBoardProps) => {
     setCardMoveDirection(filteredList);
   };
 
-  const moveCard = async (newParentlist: List, oldParentList: List, cardData: any) => {
+  const moveCard =  (newParentlist: List, oldParentList: List, cardData: any) => {
     const updatedList = listData.map((value: List) => {
       if (value._id === oldParentList._id) {
-        const filteredArray = value.cards.filter(() => cardData.ownedBy !== value._id);
+        const filteredArray = value.cards.filter((card: any) => cardData._id !== card._id) ;
 
         return { ...value, cards: filteredArray };
       }
@@ -59,6 +59,7 @@ const TaskBoard = (props: TaskBoardProps) => {
 
       return value;
     });
+
 
     updateListData(updatedList);
   };

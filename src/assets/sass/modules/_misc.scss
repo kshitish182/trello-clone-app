@@ -131,3 +131,30 @@
     border: transparent;
   }
 }
+
+.loader-wrapper {
+  position: relative;
+}
+
+.loader {
+  width: 25px;
+  height: 25px;
+  border: 2px solid $white;
+  border-radius: 50%;
+  border-top-color: $gray-1;
+  animation: spin 1s linear infinite;
+
+  @include m(inverted) {
+    border-color: $black;
+    border-top-color: $white;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

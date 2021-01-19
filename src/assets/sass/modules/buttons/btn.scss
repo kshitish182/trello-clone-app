@@ -43,6 +43,10 @@
     }
   }
 
+  @include m(auth) {
+    height: 36px;
+  }
+
   @include m(icon) {
     .icon {
       &--chevron {

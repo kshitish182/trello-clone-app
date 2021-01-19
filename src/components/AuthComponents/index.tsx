@@ -16,14 +16,15 @@ const Authorization = (props: AuthorizationProps) => {
   const [err, setError] = useState<boolean>(false);
   const [isLoading, setLoadingStatus] = useState<boolean>(false);
   const handleUserAuth = async (authHandler: () => Promise<any>) => {
+    setLoadingStatus(true);
     const result = await authHandler();
 
     if (!result) {
+      setLoadingStatus(false);
       return setError(true);
     }
 
-    console.log(result);
-
+    setLoadingStatus(false);
     props.setUserData(result);
     props.setLoginStatus(true);
     props.setUserAuthStatus(true);

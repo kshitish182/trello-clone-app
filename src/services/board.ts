@@ -20,7 +20,6 @@ export const initialBoardData: Board = {
 export const postBoard = async (userId: string, boardTitle: string) => {
   try {
     const { data } = await http.post(appendToEndpoint('/createBoard', userId), { title: boardTitle });
-    console.log(data);
 
     return data.data.boardId;
   } catch (err) {

@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import Loader from '../common/Loader';
 import { registerUser } from '../../services/auth';
+import { RSA_PKCS1_OAEP_PADDING } from 'constants';
+
 interface RegisterProps {
   isLoading: boolean;
   handleUserAuth: (value: () => Promise<any>) => void;
@@ -87,8 +90,8 @@ const Register = (props: RegisterProps) => {
         {showError && <div className="text--err">Password did not match</div>}
       </div>
       <div className="form__elm mt--25">
-        <button type="button" className="btn btn--action btn--success btn--full" onClick={handleRegistration}>
-          Regsister
+        <button type="button" className="btn btn--action btn--success btn--full btn--auth" onClick={handleRegistration} disabled={props.isLoading}>
+          {props.isLoading ? <Loader /> : "Register"}
         </button>
       </div>
       <div className="flex__elm flx--ctr">

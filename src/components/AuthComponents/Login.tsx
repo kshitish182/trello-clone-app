@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import Loader from '../common/Loader';
 import { loginUser } from '../../services/auth';
 interface LoginProps {
   err: boolean;
@@ -44,9 +45,10 @@ const Login = (props: LoginProps) => {
         <button
           type="button"
           onClick={() => props.handleUserAuth(() => loginUser(loginData))}
-          className="btn btn--full btn--success btn--action"
+          className="btn btn--full btn--success btn--action flx--ctr btn--auth"
+          disabled={props.isLoading}
         >
-          Sign in
+          {!props.isLoading ? "Sign in" : <Loader />}
         </button>
       </div>
       <div className="form__elm flx--ctr">
