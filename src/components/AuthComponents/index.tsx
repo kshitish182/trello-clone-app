@@ -14,12 +14,15 @@ interface AuthorizationProps {
 const Authorization = (props: AuthorizationProps) => {
   const history = useHistory();
   const [err, setError] = useState<boolean>(false);
+  const [isLoading, setLoadingStatus] = useState<boolean>(false);
   const handleUserAuth = async (authHandler: () => Promise<any>) => {
     const result = await authHandler();
 
     if (!result) {
       return setError(true);
     }
+
+    console.log(result);
 
     props.setUserData(result);
     props.setLoginStatus(true);
@@ -40,8 +43,8 @@ const Authorization = (props: AuthorizationProps) => {
       <form className="form form--auth">
         {/* Auth Routes */}
         <Switch>
-          <Route path="/login" render={() => <Login handleUserAuth={handleUserAuth} err={err} />} />
-          <Route path="/register" render={() => <Register handleUserAuth={handleUserAuth} />} />
+          <Route path="/login" render={() => <Login handleUserAuth={handleUserAuth} err={err} isLoading={isLoading} />} />
+          <Route path="/register" render={() => <Register handleUserAuth={handleUserAuth} isLoading={isLoading} />}/>
         </Switch>
       </form>
     </div>

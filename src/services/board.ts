@@ -20,6 +20,7 @@ export const initialBoardData: Board = {
 export const postBoard = async (userId: string, boardTitle: string) => {
   try {
     const { data } = await http.post(appendToEndpoint('/createBoard', userId), { title: boardTitle });
+    console.log(data);
 
     return data.data.boardId;
   } catch (err) {
@@ -30,8 +31,7 @@ export const postBoard = async (userId: string, boardTitle: string) => {
 
 export const getBoard = async (boardId: string) => {
   try {
-    const result = await http.get(appendToEndpoint('getBoard', boardId));
-    console.log(result.data);
+    const result = await http.get(appendToEndpoint('getBoard', boardId))
 
     return result.data.data;
   } catch (err) {

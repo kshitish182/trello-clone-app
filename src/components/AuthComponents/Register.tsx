@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { registerUser } from '../../services/auth';
 interface RegisterProps {
+  isLoading: boolean;
   handleUserAuth: (value: () => Promise<any>) => void;
 }
 

@@ -4,6 +4,7 @@ export function setUserInfoInStorage(data: { token: string; email: string }) {
 }
 
 export function getUserInfoFromStorage() {
+  console.log("i run here");
   const token = localStorage.getItem('token');
   const email = localStorage.getItem('email');
 

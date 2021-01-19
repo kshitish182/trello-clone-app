@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { loginUser } from '../../services/auth';
 interface LoginProps {
   err: boolean;
+  isLoading: boolean;
   handleUserAuth: (value: () => Promise<any>) => void;
 }
 

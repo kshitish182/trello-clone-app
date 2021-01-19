@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import axios from 'axios';
-import { http } from '../utils/http';
-import { setUserInfoInStorage } from '../utils/token';
+import { setUserInfoInStorage,  getUserInfoFromStorage } from '../utils/token';
 
 dotenv.config();
 
@@ -50,7 +49,7 @@ export const loginUser = async (userData: any) => {
 
 export const verifyToken = async (payload: { accessToken: string; email: string }) => {
   try {
-    const result = await http.post(`${process.env.REACT_APP_API_URI}/verify-token`, payload);
+    const result = await axios.post(`${process.env.REACT_APP_API_URI}/verify-token`, payload);
     const { data } = result.data;
 
     return data;
