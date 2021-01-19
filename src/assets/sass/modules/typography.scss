@@ -1,0 +1,28 @@
+.title {
+  font-weight: 700;
+  font-size: 14px;
+
+  @include m(xl) {
+    font-size: 24px;
+  }
+
+  @include m(lg) {
+    font-size: 16px;
+  }
+}
+
+.text {
+  @include m(center) {
+    text-align: center;
+  }
+
+  @include m(err) {
+    color: red;
+    margin-top: 5px;
+    font-size: 10px;
+  }
+
+  @include m(gray-1) {
+    color: $gray-1;
+  }
+}

@@ -1,0 +1,27 @@
+header {
+  padding: 5px 0;
+  background: $bg--header;
+  color: $white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  max-height: 40px;
+
+  .circle__text {
+    color: $white;
+  }
+}
+
+.header {
+  @include m(login) {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  @include e(logo) {
+    width: 86px;
+  }
+}

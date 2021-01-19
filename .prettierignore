@@ -1,0 +1,2 @@
+# ignore mapped css
+src/**/*.css

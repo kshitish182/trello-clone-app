@@ -1,0 +1,13 @@
+.btn {
+  @include m(primary) {
+    padding: 5px;
+    background-color: $blue-tint;
+    color: $white;
+
+    .icon {
+      path {
+        color: $white;
+      }
+    }
+  }
+}

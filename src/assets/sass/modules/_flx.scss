@@ -1,0 +1,28 @@
+.flx {
+  display: flex;
+
+  @include m(board-container) {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  @include e(col) {
+    height: 85vh;
+    flex-shrink: 0;
+    padding-right: 20px;
+  }
+
+  @include m(algn-ctr) {
+    align-items: center;
+  }
+
+  @include m(ctr) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @include m(algn-start) {
+    align-self: flex-start;
+  }
+}

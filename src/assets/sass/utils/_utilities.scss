@@ -1,0 +1,47 @@
+// mixins for creating elements for BEM
+
+@mixin e($element) {
+  &__#{$element} {
+    @content;
+  }
+}
+
+// mixins for creating modifire for BEM
+
+@mixin m($modifier) {
+  &--#{$modifier} {
+    @content;
+  }
+}
+
+// mixin for media queries
+
+@mixin mq($breakpoint) {
+  @if ($breakpoint == 'xxs') {
+    @media (min-width: $xxs) {
+      @content;
+    }
+  } @else if($breakpoint == 'xs') {
+    @media (min-width: $xs) {
+      @content;
+    }
+  } @else if($breakpoint == 'sm') {
+    @media (min-width: $sm) {
+      @content;
+    }
+  } @else if($breakpoint == 'md') {
+    @media (min-width: $md) {
+      @content;
+    }
+  } @else if($breakpoint == 'lg') {
+    @media (min-width: $lg) {
+      @content;
+    }
+  } @else if($breakpoint == 'xl') {
+    @media (min-width: $xl) {
+      @content;
+    }
+  } @else {
+    @error Invalid breakpoint unquote(":") "#{$breakpoint}" doesnot exist;
+  }
+}

@@ -1,0 +1,96 @@
+.btn {
+  background: none;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+
+  @include m(full) {
+    width: 100%;
+    text-align: center;
+  }
+
+  @include m(action) {
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+
+    &.disabled {
+      background: $gray;
+    }
+  }
+
+  @include m(success) {
+    background: $color--success;
+    color: $white;
+  }
+
+  @include m(thin) {
+    padding: 5px 10px;
+  }
+
+  @include m(link) {
+    color: $link;
+    font-size: 14px;
+    padding: 0;
+    background: none;
+
+    &:hover {
+      color: $link--hover;
+    }
+  }
+
+  @include m(auth) {
+    height: 36px;
+  }
+
+  @include m(icon) {
+    .icon {
+      &--chevron {
+        path {
+          fill: none;
+        }
+
+        polyline {
+          fill: none;
+          stroke: $gray-1;
+          stroke-width: 2;
+        }
+      }
+    }
+
+    &:hover,
+    &.active {
+      .icon {
+        path {
+          fill: $gray-1;
+        }
+
+        &--dot-menu {
+          path {
+            fill: none;
+          }
+
+          circle {
+            fill: $gray-1;
+          }
+        }
+
+        &--chevron {
+          path {
+            fill: none;
+          }
+
+          polyline {
+            fill: none;
+            stroke: $gray-1;
+            stroke-width: 2;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,160 @@
+.main-offset {
+  padding-top: 80px;
+}
+
+.mt--15 {
+  margin-top: 15px;
+}
+
+.mt--25 {
+  margin-top: 25px;
+}
+
+.mt--20 {
+  margin-top: 20px;
+}
+
+.mr--20 {
+  margin-right: 20px;
+}
+
+.mb--15 {
+  margin-bottom: 15px;
+}
+
+.mb--25 {
+  margin-bottom: 25px;
+}
+
+.ml--15 {
+  margin-left: 15px;
+}
+
+.ml--5 {
+  margin-left: 5px;
+}
+
+.ml--auto {
+  margin-left: auto;
+}
+
+.mr--auto {
+  margin-right: auto;
+}
+
+.list-input {
+  width: 300px;
+  align-self: flex-start;
+  text-align: left;
+}
+
+.createElm {
+  @include m(inline) {
+    display: flex;
+    align-items: center;
+    background: $blue-tint;
+
+    .createElm__btn-wrapper {
+      margin: 0 0 0 15px;
+    }
+  }
+}
+
+.createElm__btn-wrapper {
+  margin-top: 15px;
+
+  > .btn {
+    margin-right: 15px;
+  }
+}
+
+.main-logo {
+  width: 200px;
+  display: inline-block;
+}
+
+.page-offset {
+  margin-top: 40px;
+}
+
+.board {
+  background: $primary-color;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+
+  @include e(content) {
+    padding: 5px 15px;
+    overflow-x: auto;
+  }
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.ds--in-block {
+  display: inline-block;
+}
+
+.icon--pull {
+  margin: -5px;
+}
+
+.list {
+  margin-bottom: 20px;
+
+  @include e(item) {
+    padding: 10px 15px;
+  }
+}
+
+.card__body {
+  .list__item {
+    padding: 10px 0;
+  }
+}
+
+.rotate--180 {
+  display: inline-block;
+  transform: rotate(180deg);
+}
+
+.createElm--card {
+  background: $white;
+  border-radius: 4px;
+
+  .input {
+    border: transparent;
+  }
+}
+
+.loader-wrapper {
+  position: relative;
+}
+
+.loader {
+  width: 25px;
+  height: 25px;
+  border: 2px solid $white;
+  border-radius: 50%;
+  border-top-color: $gray-1;
+  animation: spin 1s linear infinite;
+
+  @include m(inverted) {
+    border-color: $black;
+    border-top-color: $white;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
